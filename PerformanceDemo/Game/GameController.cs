@@ -145,7 +145,13 @@ namespace PerformanceDemo.Game
                 turretDirection = -TURRET_MOVE_SPEED;
             }
 
-            playerTurret.Location.X += turretDirection;
+            int halfBaseWidth = TURRET_BASE_WIDTH / 2;
+            double newTurretLocation = playerTurret.Location.X + turretDirection;
+            if (newTurretLocation - halfBaseWidth >= 0 && 
+                newTurretLocation + halfBaseWidth <= Boundary.Width)
+            {
+                playerTurret.Location.X = newTurretLocation;
+            }
         }
 
         public void ClearAllBalls()
