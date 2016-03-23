@@ -94,6 +94,8 @@ namespace PerformanceDemo
             {
                 rightClickContextMenu.Show(Cursor.Position.X, Cursor.Position.Y);
                 gameController.Paused = true;
+                bool ballFoundAtMouse = gameController.RightMouseDown(e.X, e.Y);
+                deleteMenuItem.Enabled = ballFoundAtMouse;
                 gameStatus.Text = "Paused";
             }
         }
@@ -136,7 +138,7 @@ namespace PerformanceDemo
 
         private void deleteMenuItem_Click(object sender, EventArgs e)
         {
-
+            gameController.DeleteRightClickBall();
         }
     }
 }

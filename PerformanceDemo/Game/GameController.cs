@@ -33,6 +33,7 @@ namespace PerformanceDemo.Game
         private bool shouldFire;
         private bool paused;
         private Ball selectedBall;
+        private Ball rightClickedBall;
         private Vector2 mouseLocation;
         private Vector2 selectedVector;
 
@@ -52,6 +53,7 @@ namespace PerformanceDemo.Game
             shouldFire = false;
             paused = false;
             selectedBall = null;
+            rightClickedBall = null;
             mouseLocation = new Vector2(0, 0);
             selectedVector = new Vector2(0, 0);
         }
@@ -247,6 +249,29 @@ namespace PerformanceDemo.Game
                 selectedBall = null;
             }
             ShouldFire = false;
+        }
+
+        public bool RightMouseDown(int mouseX, int mouseY)
+        {
+            bool ballFound = false;
+
+            Ball foundBall = graphicalBallManager.FindBall(new Vector2(mouseX, mouseY));
+            if (foundBall != null)
+            {
+                rightClickedBall = foundBall;
+                ballFound = true;
+            }
+
+            return ballFound;
+        }
+
+        public void DeleteRightClickBall()
+        {
+            if (rightClickedBall != null)
+            {
+                graphicalBallManager.RemoveBall(rightClickedBall);
+                rightClickedBall = null;
+            }
         }
 
         public void FireTurret()
