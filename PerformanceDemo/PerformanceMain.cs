@@ -33,7 +33,7 @@ namespace PerformanceDemo
         public Rectangle CalculateVisibleRectangle()
         {
             return new Rectangle(0, menuStrip1.Height, 
-                ClientRectangle.Width, ClientRectangle.Height - statusStrip1.Height);
+                ClientRectangle.Width, ClientRectangle.Height - gameStatusStrip.Height);
         }
 
 
@@ -88,6 +88,13 @@ namespace PerformanceDemo
             if (e.Button == MouseButtons.Left)
             {
                 gameController.LeftMouseDown(e.X, e.Y);
+                gameStatus.Text = "";
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                rightClickContextMenu.Show(Cursor.Position.X, Cursor.Position.Y);
+                gameController.Paused = true;
+                gameStatus.Text = "Paused";
             }
         }
 
@@ -125,6 +132,11 @@ namespace PerformanceDemo
             {
                 gameController.LeftArrowPressed = false;
             }
+        }
+
+        private void deleteMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

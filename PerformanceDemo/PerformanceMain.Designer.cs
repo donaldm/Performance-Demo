@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.components = new System.ComponentModel.Container();
+            this.gameStatusStrip = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -36,16 +37,23 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numberOfBallsLabel = new System.Windows.Forms.Label();
+            this.rightClickContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.gameStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.rightClickContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
-            // statusStrip1
+            // gameStatusStrip
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 483);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(661, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+            this.gameStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gameStatus});
+            this.gameStatusStrip.Location = new System.Drawing.Point(0, 483);
+            this.gameStatusStrip.Name = "gameStatusStrip";
+            this.gameStatusStrip.Size = new System.Drawing.Size(661, 22);
+            this.gameStatusStrip.TabIndex = 0;
+            this.gameStatusStrip.Text = "statusStrip1";
             // 
             // menuStrip1
             // 
@@ -107,13 +115,33 @@
             this.numberOfBallsLabel.TabIndex = 2;
             this.numberOfBallsLabel.Text = "Number Of Balls";
             // 
+            // rightClickContextMenu
+            // 
+            this.rightClickContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteMenuItem});
+            this.rightClickContextMenu.Name = "rightClickContextMenu";
+            this.rightClickContextMenu.Size = new System.Drawing.Size(108, 26);
+            // 
+            // deleteMenuItem
+            // 
+            this.deleteMenuItem.Enabled = false;
+            this.deleteMenuItem.Name = "deleteMenuItem";
+            this.deleteMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteMenuItem.Text = "&Delete";
+            this.deleteMenuItem.Click += new System.EventHandler(this.deleteMenuItem_Click);
+            // 
+            // gameStatus
+            // 
+            this.gameStatus.Name = "gameStatus";
+            this.gameStatus.Size = new System.Drawing.Size(0, 17);
+            // 
             // PerformanceMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(661, 505);
             this.Controls.Add(this.numberOfBallsLabel);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.gameStatusStrip);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "PerformanceMain";
@@ -126,8 +154,11 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PerformanceMain_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PerformanceMain_MouseUp);
             this.Resize += new System.EventHandler(this.PerformanceMain_Resize);
+            this.gameStatusStrip.ResumeLayout(false);
+            this.gameStatusStrip.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.rightClickContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,7 +166,7 @@
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip gameStatusStrip;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -143,6 +174,9 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
         private System.Windows.Forms.Label numberOfBallsLabel;
+        private System.Windows.Forms.ContextMenuStrip rightClickContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem deleteMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel gameStatus;
     }
 }
 

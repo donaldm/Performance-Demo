@@ -23,7 +23,7 @@ namespace PerformanceDemo.Game
         private const int TURRET_BASE_WIDTH = 50;
         private const int TURRET_BASE_HEIGHT = 50;
         private const int TURRET_WIDTH = 20;
- 
+
         private GraphicalBallManager graphicalBallManager;
         private WorldParameters worldParameters;
         private Turret playerTurret;
@@ -31,6 +31,7 @@ namespace PerformanceDemo.Game
         private bool rightArrowPressed;
         private bool leftArrowPressed;
         private bool shouldFire;
+        private bool paused;
         private Ball selectedBall;
         private Vector2 mouseLocation;
         private Vector2 selectedVector;
@@ -41,7 +42,7 @@ namespace PerformanceDemo.Game
             worldParameters = new WorldParameters(GRAVITY, DAMPING);
 
             Vector2 startLocation = new Vector2(worldBoundary.X + worldBoundary.Width / 2, worldBoundary.Y + worldBoundary.Height - 25);
-            playerTurret = new Turret(startLocation, TURRET_START_ANGLE, TURRET_START_LENGTH, 
+            playerTurret = new Turret(startLocation, TURRET_START_ANGLE, TURRET_START_LENGTH,
                 TURRET_BASE_WIDTH, TURRET_BASE_HEIGHT, TURRET_WIDTH);
 
             ballRadius = BALL_RADIUS;
@@ -49,6 +50,7 @@ namespace PerformanceDemo.Game
             rightArrowPressed = false;
             leftArrowPressed = false;
             shouldFire = false;
+            paused = false;
             selectedBall = null;
             mouseLocation = new Vector2(0, 0);
             selectedVector = new Vector2(0, 0);
@@ -87,6 +89,19 @@ namespace PerformanceDemo.Game
             }
         }
 
+        public bool Paused
+        {
+            set
+            {
+                paused = value;
+            }
+
+            get
+            {
+                return paused;
+            }
+        }
+
         public bool RightArrowPressed
         {
             set
@@ -115,12 +130,17 @@ namespace PerformanceDemo.Game
 
         public void Update()
         {
+            if (paused)
+            {
+                return;
+            }
+
             UpdateTurretPosition();
             playerTurret.Location.Y = Boundary.Y + Boundary.Height - playerTurret.BaseHeight / 2;
             selectedVector.X = mouseLocation.X;
             selectedVector.Y = mouseLocation.Y;
 
-            if ( shouldFire )
+            if (shouldFire)
             {
                 FireTurret();
                 shouldFire = false;
@@ -147,7 +167,7 @@ namespace PerformanceDemo.Game
 
             int halfBaseWidth = TURRET_BASE_WIDTH / 2;
             double newTurretLocation = playerTurret.Location.X + turretDirection;
-            if (newTurretLocation - halfBaseWidth >= 0 && 
+            if (newTurretLocation - halfBaseWidth >= 0 &&
                 newTurretLocation + halfBaseWidth <= Boundary.Width)
             {
                 playerTurret.Location.X = newTurretLocation;
@@ -166,6 +186,11 @@ namespace PerformanceDemo.Game
 
         public void MouseMove(int mouseX, int mouseY)
         {
+            if (paused)
+            {
+                return;
+            }
+
             mouseLocation.X = mouseX;
             mouseLocation.Y = mouseY;
             RotateTurretTowards(mouseX, mouseY);
@@ -182,9 +207,15 @@ namespace PerformanceDemo.Game
                 selectedBall.Velocity.Y = 0;
             }
         }
-        
+
         public void LeftMouseDown(int mouseX, int mouseY)
         {
+            if (paused)
+            {
+                paused = false;
+                return;
+            }
+
             mouseLocation.X = mouseX;
             mouseLocation.Y = mouseY;
             Ball foundBall = graphicalBallManager.FindBall(mouseLocation);
