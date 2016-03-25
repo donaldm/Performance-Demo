@@ -10,7 +10,7 @@ namespace PerformanceDemo.Renderers
 {
     class BallRenderer
     {
-        Ball ball;
+        private Ball ball;
 
         public BallRenderer(Ball ballToRender)
         {

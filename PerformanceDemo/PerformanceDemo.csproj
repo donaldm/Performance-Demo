@@ -48,10 +48,13 @@
   <ItemGroup>
     <Compile Include="Game Core\Ball.cs" />
     <Compile Include="Game Core\BallManager.cs" />
+    <Compile Include="Game Core\StickFigure.cs" />
+    <Compile Include="Game Core\StickFigureManager.cs" />
     <Compile Include="Game Core\Turret.cs" />
     <Compile Include="Game Core\WorldParameters.cs" />
     <Compile Include="Game\GameController.cs" />
     <Compile Include="Game\GraphicalBallManager.cs" />
+    <Compile Include="Game\GraphicalStickFigureManager.cs" />
     <Compile Include="PerformanceControls.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +76,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderers\StickFigureRenderer.cs" />
     <Compile Include="Renderers\TurretRenderer.cs" />
     <Compile Include="Utilities\Vector2.cs" />
     <EmbeddedResource Include="PerformanceAboutBox.resx">

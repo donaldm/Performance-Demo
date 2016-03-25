@@ -31,6 +31,14 @@ namespace PerformanceDemo.Game_Core
             balls.Clear();
         }
 
+        public List<Ball> Balls
+        {
+            get
+            {
+                return balls;
+            }
+        }
+
         public int Count
         {
             get

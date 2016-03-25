@@ -25,9 +25,11 @@ namespace PerformanceDemo.Game
         private const int TURRET_WIDTH = 20;
 
         private GraphicalBallManager graphicalBallManager;
+        private GraphicalStickFigureManager graphicalStickFigureManager;
         private WorldParameters worldParameters;
         private Turret playerTurret;
         private int ballRadius;
+        private bool allowThrow;
         private bool rightArrowPressed;
         private bool leftArrowPressed;
         private bool shouldFire;
@@ -40,6 +42,8 @@ namespace PerformanceDemo.Game
         public GameController(Rectangle worldBoundary)
         {
             graphicalBallManager = new GraphicalBallManager(worldBoundary);
+            graphicalStickFigureManager = new GraphicalStickFigureManager(worldBoundary);
+
             worldParameters = new WorldParameters(GRAVITY, DAMPING);
 
             Vector2 startLocation = new Vector2(worldBoundary.X + worldBoundary.Width / 2, worldBoundary.Y + worldBoundary.Height - 25);
@@ -48,6 +52,7 @@ namespace PerformanceDemo.Game
 
             ballRadius = BALL_RADIUS;
 
+            allowThrow = true;
             rightArrowPressed = false;
             leftArrowPressed = false;
             shouldFire = false;
@@ -63,6 +68,7 @@ namespace PerformanceDemo.Game
             set
             {
                 graphicalBallManager.Boundary = value;
+                graphicalStickFigureManager.Boundary = value;
             }
             get
             {
@@ -75,6 +81,19 @@ namespace PerformanceDemo.Game
             get
             {
                 return graphicalBallManager.Count;
+            }
+        }
+
+        public bool AllowThrow
+        {
+            set
+            {
+                allowThrow = value;
+            }
+            
+            get
+            {
+                return allowThrow;
             }
         }
 
@@ -148,7 +167,51 @@ namespace PerformanceDemo.Game
                 shouldFire = false;
             }
 
+            graphicalStickFigureManager.Update(worldParameters);
             graphicalBallManager.Update(worldParameters);
+            CheckCollisions();
+        }
+
+        public void CheckCollisions()
+        {
+            List<Ball> ballsToDestroy = new List<Ball>();
+            List<StickFigure> stickFiguresToDestroy = new List<StickFigure>();
+
+            foreach(Ball curBall in graphicalBallManager.Balls)
+            {
+                BallRenderer ballRenderer = new BallRenderer(curBall);
+                Rectangle ballRect = ballRenderer.CalculateBoundingBox();
+                foreach(StickFigure stickFigure in graphicalStickFigureManager.StickFigures)
+                {
+                    StickFigureRenderer stickRenderer = new StickFigureRenderer(stickFigure);
+                    Rectangle stickRect = stickRenderer.CalculateBoundingBox();
+
+                    if (ballRect.IntersectsWith(stickRect))
+                    {
+                        ballsToDestroy.Add(curBall);
+                        stickFiguresToDestroy.Add(stickFigure);
+                    }
+                }
+            }
+
+            DestroyBalls(ballsToDestroy);
+            DestroyStickFigures(stickFiguresToDestroy);
+        }
+
+        public void DestroyBalls(List<Ball> balls)
+        {
+            foreach(Ball curBall in balls)
+            {
+                graphicalBallManager.RemoveBall(curBall);
+            }
+        }
+
+        public void DestroyStickFigures(List<StickFigure> stickFigures)
+        {
+            foreach(StickFigure stickFigure in stickFigures)
+            {
+                graphicalStickFigureManager.RemoveStickFigure(stickFigure);
+            }
         }
 
         private void UpdateTurretPosition()
@@ -221,7 +284,7 @@ namespace PerformanceDemo.Game
             mouseLocation.X = mouseX;
             mouseLocation.Y = mouseY;
             Ball foundBall = graphicalBallManager.FindBall(mouseLocation);
-            if (foundBall != null)
+            if (foundBall != null && allowThrow)
             {
                 selectedBall = foundBall;
                 selectedBall.EnableGravity = false;
@@ -283,9 +346,16 @@ namespace PerformanceDemo.Game
             graphicalBallManager.AddBall(myBall);
         }
 
+        public void AddStickFigure(int x, int y)
+        {
+            StickFigure figure = new StickFigure(new Vector2(x, y), new Vector2(0, 0), 25, 50, 10);
+            graphicalStickFigureManager.AddStickFigure(figure);
+        }
+
         public void Draw(Graphics graphics)
         {
             graphicalBallManager.Draw(graphics);
+            graphicalStickFigureManager.Draw(graphics);
             TurretRenderer turretRenderer = new TurretRenderer(playerTurret);
             turretRenderer.Draw(graphics);
         }

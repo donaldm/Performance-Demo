@@ -9,10 +9,10 @@ namespace PerformanceDemo.Game_Core
 {
     class Ball
     {
-        double radius;
-        Vector2 position;
-        Vector2 velocity;
-        bool enableGravity;
+        private double radius;
+        private Vector2 position;
+        private Vector2 velocity;
+        private bool enableGravity;
 
         public Ball(double startRadius, Vector2 startPosition, Vector2 startVelocity)
         {

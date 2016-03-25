@@ -122,6 +122,11 @@ namespace PerformanceDemo
             {
                 gameController.ClearAllBalls();
             }
+            else if ( e.KeyCode == Keys.A )
+            {
+                Point mousePos = PointToClient(MousePosition);
+                gameController.AddStickFigure(mousePos.X, mousePos.Y);
+            }
         }
 
         private void PerformanceMain_KeyUp(object sender, KeyEventArgs e)
@@ -139,6 +144,11 @@ namespace PerformanceDemo
         private void deleteMenuItem_Click(object sender, EventArgs e)
         {
             gameController.DeleteRightClickBall();
+        }
+
+        private void allowThrowingMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            gameController.AllowThrow = allowThrowingMenuItem.Checked;
         }
     }
 }

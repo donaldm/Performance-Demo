@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gameStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.gameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -39,7 +40,10 @@
             this.numberOfBallsLabel = new System.Windows.Forms.Label();
             this.rightClickContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gameStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allowThrowingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.controlMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.rightClickContextMenu.SuspendLayout();
@@ -55,10 +59,17 @@
             this.gameStatusStrip.TabIndex = 0;
             this.gameStatusStrip.Text = "statusStrip1";
             // 
+            // gameStatus
+            // 
+            this.gameStatus.Name = "gameStatus";
+            this.gameStatus.Size = new System.Drawing.Size(0, 17);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.optionsToolStripMenuItem,
+            this.viewToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -130,10 +141,37 @@
             this.deleteMenuItem.Text = "&Delete";
             this.deleteMenuItem.Click += new System.EventHandler(this.deleteMenuItem_Click);
             // 
-            // gameStatus
+            // optionsToolStripMenuItem
             // 
-            this.gameStatus.Name = "gameStatus";
-            this.gameStatus.Size = new System.Drawing.Size(0, 17);
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allowThrowingMenuItem});
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Text = "&Options";
+            // 
+            // allowThrowingMenuItem
+            // 
+            this.allowThrowingMenuItem.Checked = true;
+            this.allowThrowingMenuItem.CheckOnClick = true;
+            this.allowThrowingMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.allowThrowingMenuItem.Name = "allowThrowingMenuItem";
+            this.allowThrowingMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.allowThrowingMenuItem.Text = "Allow Throwing";
+            this.allowThrowingMenuItem.CheckedChanged += new System.EventHandler(this.allowThrowingMenuItem_CheckedChanged);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.controlMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "&View";
+            // 
+            // controlMenuItem
+            // 
+            this.controlMenuItem.Name = "controlMenuItem";
+            this.controlMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.controlMenuItem.Text = "Controls";
             // 
             // PerformanceMain
             // 
@@ -177,6 +215,10 @@
         private System.Windows.Forms.ContextMenuStrip rightClickContextMenu;
         private System.Windows.Forms.ToolStripMenuItem deleteMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel gameStatus;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allowThrowingMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem controlMenuItem;
     }
 }
 

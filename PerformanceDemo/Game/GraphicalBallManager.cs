@@ -12,10 +12,12 @@ namespace PerformanceDemo.Game
     class GraphicalBallManager : BallManager
     {
         private Rectangle boundary;
+        private Random random;
 
         public GraphicalBallManager(Rectangle windowBoundary) : base()
         {
             boundary = windowBoundary;
+            random = new Random();
         }
 
         public Rectangle Boundary
@@ -55,6 +57,11 @@ namespace PerformanceDemo.Game
             if (ballRectangle.Y + ballRectangle.Height > boundary.Height)
             {
                 ball.Velocity.Y = -Math.Abs(ball.Velocity.Y) * parameters.Damping;
+                double jitterVel = ball.Velocity.Y / 2;
+                if (jitterVel < -1)
+                {
+                    ball.Velocity.X += random.NextDouble() * jitterVel - random.NextDouble() * jitterVel;
+                }
                 ball.Position.Y = boundary.Height - ball.Radius;
             }
         }
