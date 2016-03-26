@@ -24,8 +24,8 @@ namespace PerformanceDemo.Game
         private const int TURRET_BASE_HEIGHT = 50;
         private const int TURRET_WIDTH = 20;
 
-        private GraphicalBallManager graphicalBallManager;
-        private GraphicalStickFigureManager graphicalStickFigureManager;
+        private BallManager ballManager;
+        private StickFigureManager stickFigureManager;
         private WorldParameters worldParameters;
         private Turret playerTurret;
         private int ballRadius;
@@ -41,8 +41,8 @@ namespace PerformanceDemo.Game
 
         public GameController(Rectangle worldBoundary)
         {
-            graphicalBallManager = new GraphicalBallManager(worldBoundary);
-            graphicalStickFigureManager = new GraphicalStickFigureManager(worldBoundary);
+            ballManager = new BallManager(worldBoundary);
+            stickFigureManager = new StickFigureManager(worldBoundary);
 
             worldParameters = new WorldParameters(GRAVITY, DAMPING);
 
@@ -67,12 +67,12 @@ namespace PerformanceDemo.Game
         {
             set
             {
-                graphicalBallManager.Boundary = value;
-                graphicalStickFigureManager.Boundary = value;
+                ballManager.Boundary = value;
+                stickFigureManager.Boundary = value;
             }
             get
             {
-                return graphicalBallManager.Boundary;
+                return ballManager.Boundary;
             }
         }
 
@@ -80,7 +80,7 @@ namespace PerformanceDemo.Game
         {
             get
             {
-                return graphicalBallManager.Count;
+                return ballManager.Count;
             }
         }
 
@@ -167,8 +167,8 @@ namespace PerformanceDemo.Game
                 shouldFire = false;
             }
 
-            graphicalStickFigureManager.Update(worldParameters);
-            graphicalBallManager.Update(worldParameters);
+            stickFigureManager.Update(worldParameters);
+            ballManager.Update(worldParameters);
             CheckCollisions();
         }
 
@@ -177,14 +177,12 @@ namespace PerformanceDemo.Game
             List<Ball> ballsToDestroy = new List<Ball>();
             List<StickFigure> stickFiguresToDestroy = new List<StickFigure>();
 
-            foreach(Ball curBall in graphicalBallManager.Balls)
+            foreach(Ball curBall in ballManager.Balls)
             {
-                BallRenderer ballRenderer = new BallRenderer(curBall);
-                Rectangle ballRect = ballRenderer.CalculateBoundingBox();
-                foreach(StickFigure stickFigure in graphicalStickFigureManager.StickFigures)
+                Rectangle ballRect = curBall.CalculateBoundingBox();
+                foreach(StickFigure stickFigure in stickFigureManager.StickFigures)
                 {
-                    StickFigureRenderer stickRenderer = new StickFigureRenderer(stickFigure);
-                    Rectangle stickRect = stickRenderer.CalculateBoundingBox();
+                    Rectangle stickRect = stickFigure.CalculateBoundingBox();
 
                     if (ballRect.IntersectsWith(stickRect))
                     {
@@ -202,7 +200,7 @@ namespace PerformanceDemo.Game
         {
             foreach(Ball curBall in balls)
             {
-                graphicalBallManager.RemoveBall(curBall);
+                ballManager.RemoveBall(curBall);
             }
         }
 
@@ -210,7 +208,7 @@ namespace PerformanceDemo.Game
         {
             foreach(StickFigure stickFigure in stickFigures)
             {
-                graphicalStickFigureManager.RemoveStickFigure(stickFigure);
+                stickFigureManager.RemoveStickFigure(stickFigure);
             }
         }
 
@@ -241,7 +239,7 @@ namespace PerformanceDemo.Game
 
         public void ClearAllBalls()
         {
-            graphicalBallManager.Clear();
+            ballManager.Clear();
         }
 
         public void RotateTurretTowards(int x, int y)
@@ -283,7 +281,7 @@ namespace PerformanceDemo.Game
 
             mouseLocation.X = mouseX;
             mouseLocation.Y = mouseY;
-            Ball foundBall = graphicalBallManager.FindBall(mouseLocation);
+            Ball foundBall = ballManager.FindBall(mouseLocation);
             if (foundBall != null && allowThrow)
             {
                 selectedBall = foundBall;
@@ -318,7 +316,7 @@ namespace PerformanceDemo.Game
         {
             bool ballFound = false;
 
-            Ball foundBall = graphicalBallManager.FindBall(new Vector2(mouseX, mouseY));
+            Ball foundBall = ballManager.FindBall(new Vector2(mouseX, mouseY));
             if (foundBall != null)
             {
                 rightClickedBall = foundBall;
@@ -332,7 +330,7 @@ namespace PerformanceDemo.Game
         {
             if (rightClickedBall != null)
             {
-                graphicalBallManager.RemoveBall(rightClickedBall);
+                ballManager.RemoveBall(rightClickedBall);
                 rightClickedBall = null;
             }
         }
@@ -343,19 +341,19 @@ namespace PerformanceDemo.Game
             Vector2 ballVelocity = Vector2.FromAngleAndLength(turretAngle, FIRE_SPEED);
 
             Ball myBall = new Ball(ballRadius, playerTurret.EndLocation, ballVelocity);
-            graphicalBallManager.AddBall(myBall);
+            ballManager.AddBall(myBall);
         }
 
         public void AddStickFigure(int x, int y)
         {
             StickFigure figure = new StickFigure(new Vector2(x, y), new Vector2(0, 0), 25, 50, 10);
-            graphicalStickFigureManager.AddStickFigure(figure);
+            stickFigureManager.AddStickFigure(figure);
         }
 
         public void Draw(Graphics graphics)
         {
-            graphicalBallManager.Draw(graphics);
-            graphicalStickFigureManager.Draw(graphics);
+            ballManager.Draw(graphics);
+            stickFigureManager.Draw(graphics);
             TurretRenderer turretRenderer = new TurretRenderer(playerTurret);
             turretRenderer.Draw(graphics);
         }

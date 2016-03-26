@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PerformanceDemo.Utilities;
+using System.Drawing;
 
 namespace PerformanceDemo.Game_Core
 {
@@ -29,6 +30,26 @@ namespace PerformanceDemo.Game_Core
                 velocity.Y += parameters.Gravity;
             }
             position += velocity;
+        }
+
+
+        public Rectangle CalculateBoundingBox()
+        {
+            double ballRadius = Radius;
+            int ballX = (int)(Position.X - ballRadius);
+            int ballY = (int)(Position.Y - ballRadius);
+            int ballX2 = (int)(Position.X + ballRadius);
+            int ballY2 = (int)(Position.Y + ballRadius);
+            int ballWidth = ballX2 - ballX;
+            int ballHeight = ballY2 - ballY;
+
+            Rectangle rect = new Rectangle(ballX, ballY, ballWidth, ballHeight);
+            return rect;
+        }
+
+        public void Draw(Graphics graphics)
+        {
+            graphics.FillEllipse(Brushes.Red, CalculateBoundingBox());
         }
 
         public bool Contains(Vector2 testLocation)
