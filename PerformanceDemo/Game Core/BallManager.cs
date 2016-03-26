@@ -21,21 +21,6 @@ namespace PerformanceDemo.Game_Core
             random = new Random();
         }
 
-        public void AddBall(Ball ball)
-        {
-            balls.Add(ball);
-        }
-
-        public void RemoveBall(Ball ball)
-        {
-            balls.Remove(ball);
-        }
-
-        public void Clear()
-        {
-            balls.Clear();
-        }
-
         public List<Ball> Balls
         {
             get
@@ -62,6 +47,37 @@ namespace PerformanceDemo.Game_Core
             {
                 return boundary;
             }
+        }
+
+        public void AddBall(Ball ball)
+        {
+            balls.Add(ball);
+        }
+
+        public void RemoveBall(Ball ball)
+        {
+            balls.Remove(ball);
+        }
+
+        public void Clear()
+        {
+            balls.Clear();
+        }
+
+        public Ball FindBall(Vector2 location)
+        {
+            Ball foundBall = null;
+
+            foreach (Ball curBall in balls)
+            {
+                if (curBall.Contains(location))
+                {
+                    foundBall = curBall;
+                    break;
+                }
+            }
+
+            return foundBall;
         }
 
         public void Update(WorldParameters parameters)
@@ -111,22 +127,6 @@ namespace PerformanceDemo.Game_Core
             {
                 curBall.Draw(graphics);
             }
-        }
-
-        public Ball FindBall(Vector2 location)
-        {
-            Ball foundBall = null;
-
-            foreach (Ball curBall in balls)
-            {
-                if (curBall.Contains(location))
-                {
-                    foundBall = curBall;
-                    break;
-                }
-            }
-
-            return foundBall;
         }
     }
 }

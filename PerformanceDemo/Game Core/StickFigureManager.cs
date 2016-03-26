@@ -20,6 +20,26 @@ namespace PerformanceDemo.Game_Core
             random = new Random();
         }
 
+        public List<StickFigure> StickFigures
+        {
+            get
+            {
+                return stickFigures;
+            }
+        }
+
+        public Rectangle Boundary
+        {
+            set
+            {
+                boundary = value;
+            }
+            get
+            {
+                return boundary;
+            }
+        }
+
         public void AddStickFigure(StickFigure stickFigure)
         {
             stickFigures.Add(stickFigure);
@@ -33,14 +53,6 @@ namespace PerformanceDemo.Game_Core
         public void Clear()
         {
             stickFigures.Clear();
-        }
-
-        public List<StickFigure> StickFigures
-        {
-            get
-            {
-                return stickFigures;
-            }
         }
 
         public void Update(WorldParameters parameters)
@@ -76,18 +88,6 @@ namespace PerformanceDemo.Game_Core
             {
                 stickFigure.Velocity.Y = 0;
                 stickFigure.Position.Y = boundary.Height - stickFigure.Height / 2;
-            }
-        }
-
-        public Rectangle Boundary
-        {
-            set
-            {
-                boundary = value;
-            }
-            get
-            {
-                return boundary;
             }
         }
 

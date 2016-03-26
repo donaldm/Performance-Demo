@@ -23,48 +23,6 @@ namespace PerformanceDemo.Game_Core
             enableGravity = true;
         }
 
-        public void Update(WorldParameters parameters)
-        {
-            if (enableGravity)
-            {
-                velocity.Y += parameters.Gravity;
-            }
-            position += velocity;
-        }
-
-
-        public Rectangle CalculateBoundingBox()
-        {
-            double ballRadius = Radius;
-            int ballX = (int)(Position.X - ballRadius);
-            int ballY = (int)(Position.Y - ballRadius);
-            int ballX2 = (int)(Position.X + ballRadius);
-            int ballY2 = (int)(Position.Y + ballRadius);
-            int ballWidth = ballX2 - ballX;
-            int ballHeight = ballY2 - ballY;
-
-            Rectangle rect = new Rectangle(ballX, ballY, ballWidth, ballHeight);
-            return rect;
-        }
-
-        public void Draw(Graphics graphics)
-        {
-            graphics.FillEllipse(Brushes.Red, CalculateBoundingBox());
-        }
-
-        public bool Contains(Vector2 testLocation)
-        {
-            bool inside = false;
-
-            Vector2 delta = testLocation - position;
-            if ( delta.Length < radius )
-            {
-                inside = true;
-            }
-
-            return inside;
-        }
-
         public Double Radius
         {
             set
@@ -112,6 +70,47 @@ namespace PerformanceDemo.Game_Core
             {
                 return enableGravity;
             }
+        }
+
+        public Rectangle CalculateBoundingBox()
+        {
+            double ballRadius = Radius;
+            int ballX = (int)(Position.X - ballRadius);
+            int ballY = (int)(Position.Y - ballRadius);
+            int ballX2 = (int)(Position.X + ballRadius);
+            int ballY2 = (int)(Position.Y + ballRadius);
+            int ballWidth = ballX2 - ballX;
+            int ballHeight = ballY2 - ballY;
+
+            Rectangle rect = new Rectangle(ballX, ballY, ballWidth, ballHeight);
+            return rect;
+        }
+
+        public bool Contains(Vector2 testLocation)
+        {
+            bool inside = false;
+
+            Vector2 delta = testLocation - position;
+            if (delta.Length < radius)
+            {
+                inside = true;
+            }
+
+            return inside;
+        }
+
+        public void Update(WorldParameters parameters)
+        {
+            if (enableGravity)
+            {
+                velocity.Y += parameters.Gravity;
+            }
+            position += velocity;
+        }
+
+        public void Draw(Graphics graphics)
+        {
+            graphics.FillEllipse(Brushes.Red, CalculateBoundingBox());
         }
     }
 }
