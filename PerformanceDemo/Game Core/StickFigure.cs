@@ -12,6 +12,7 @@ namespace PerformanceDemo.Game_Core
     {
         private Vector2 position;
         private Vector2 velocity;
+        private Vector2 previousVelocity;
         private int width;
         private int height;
         private double headMultiplier;
@@ -20,6 +21,7 @@ namespace PerformanceDemo.Game_Core
         {
             position = startPosition;
             velocity = startVelocity;
+            previousVelocity = new Vector2(velocity);
             width = startWidth;
             height = startHeight;
             headMultiplier = startHeadMultiplier;
@@ -104,8 +106,13 @@ namespace PerformanceDemo.Game_Core
 
         public void Update(WorldParameters parameters)
         {
+            if (velocity != previousVelocity && velocity.Y == 0)
+            {
+                velocity.X = -1;
+            }
             velocity.Y += parameters.Gravity;
             position += velocity;
+            previousVelocity = new Vector2(velocity);
         }
 
 

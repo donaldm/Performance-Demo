@@ -17,6 +17,12 @@ namespace PerformanceDemo.Utilities
             y = pY;
         }
 
+        public Vector2(Vector2 vector)
+        {
+            x = vector.X;
+            y = vector.Y;
+        }
+
         public static Vector2 FromAngleAndLength(double angle, double length)
         {
             double x = Math.Cos(angle) * length;
@@ -90,6 +96,30 @@ namespace PerformanceDemo.Utilities
         public static Vector2 operator *(Vector2 input, double val)
         {
             return new Vector2(input.X * val, input.Y * val);
+        }
+
+        public static bool operator ==(Vector2 first, Vector2 second)
+        {
+            if (first.x == second.x && first.y == second.y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool operator !=(Vector2 first, Vector2 second)
+        {
+            if (first.x != second.x || first.y != second.y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

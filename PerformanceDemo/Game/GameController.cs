@@ -184,7 +184,9 @@ namespace PerformanceDemo.Game
                 {
                     Rectangle stickRect = stickFigure.CalculateBoundingBox();
 
-                    if (ballRect.IntersectsWith(stickRect))
+                    if (ballRect.IntersectsWith(stickRect) && 
+                        !ballsToDestroy.Contains(curBall) && 
+                        !stickFiguresToDestroy.Contains(stickFigure))
                     {
                         ballsToDestroy.Add(curBall);
                         stickFiguresToDestroy.Add(stickFigure);
