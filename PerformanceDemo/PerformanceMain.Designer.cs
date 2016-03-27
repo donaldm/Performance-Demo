@@ -35,15 +35,15 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allowThrowingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.controlMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numberOfBallsLabel = new System.Windows.Forms.Label();
             this.rightClickContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.allowThrowingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.controlMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.rightClickContextMenu.SuspendLayout();
@@ -98,49 +98,6 @@
             this.exitMenuItem.Text = "E&xit";
             this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "&Help";
-            // 
-            // aboutMenuItem
-            // 
-            this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.aboutMenuItem.Text = "&About Performance Demo";
-            this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
-            // 
-            // numberOfBallsLabel
-            // 
-            this.numberOfBallsLabel.AutoSize = true;
-            this.numberOfBallsLabel.BackColor = System.Drawing.Color.Black;
-            this.numberOfBallsLabel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.numberOfBallsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numberOfBallsLabel.ForeColor = System.Drawing.Color.White;
-            this.numberOfBallsLabel.Location = new System.Drawing.Point(449, 24);
-            this.numberOfBallsLabel.Name = "numberOfBallsLabel";
-            this.numberOfBallsLabel.Size = new System.Drawing.Size(212, 31);
-            this.numberOfBallsLabel.TabIndex = 2;
-            this.numberOfBallsLabel.Text = "Number Of Balls";
-            // 
-            // rightClickContextMenu
-            // 
-            this.rightClickContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteMenuItem});
-            this.rightClickContextMenu.Name = "rightClickContextMenu";
-            this.rightClickContextMenu.Size = new System.Drawing.Size(108, 26);
-            // 
-            // deleteMenuItem
-            // 
-            this.deleteMenuItem.Enabled = false;
-            this.deleteMenuItem.Name = "deleteMenuItem";
-            this.deleteMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.deleteMenuItem.Text = "&Delete";
-            this.deleteMenuItem.Click += new System.EventHandler(this.deleteMenuItem_Click);
-            // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -170,8 +127,52 @@
             // controlMenuItem
             // 
             this.controlMenuItem.Name = "controlMenuItem";
-            this.controlMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.controlMenuItem.Size = new System.Drawing.Size(119, 22);
             this.controlMenuItem.Text = "Controls";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "&Help";
+            // 
+            // aboutMenuItem
+            // 
+            this.aboutMenuItem.Name = "aboutMenuItem";
+            this.aboutMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.aboutMenuItem.Text = "&About Performance Demo";
+            this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
+            // 
+            // numberOfBallsLabel
+            // 
+            this.numberOfBallsLabel.AutoSize = true;
+            this.numberOfBallsLabel.BackColor = System.Drawing.Color.Black;
+            this.numberOfBallsLabel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.numberOfBallsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numberOfBallsLabel.ForeColor = System.Drawing.Color.White;
+            this.numberOfBallsLabel.Location = new System.Drawing.Point(449, 24);
+            this.numberOfBallsLabel.Name = "numberOfBallsLabel";
+            this.numberOfBallsLabel.Size = new System.Drawing.Size(212, 31);
+            this.numberOfBallsLabel.TabIndex = 2;
+            this.numberOfBallsLabel.Text = "Number Of Balls";
+            this.numberOfBallsLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // rightClickContextMenu
+            // 
+            this.rightClickContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteMenuItem});
+            this.rightClickContextMenu.Name = "rightClickContextMenu";
+            this.rightClickContextMenu.Size = new System.Drawing.Size(108, 26);
+            // 
+            // deleteMenuItem
+            // 
+            this.deleteMenuItem.Enabled = false;
+            this.deleteMenuItem.Name = "deleteMenuItem";
+            this.deleteMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteMenuItem.Text = "&Delete";
+            this.deleteMenuItem.Click += new System.EventHandler(this.deleteMenuItem_Click);
             // 
             // PerformanceMain
             // 

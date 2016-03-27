@@ -40,7 +40,10 @@ namespace PerformanceDemo
 
         private void UpdateStatsGUI()
         {
-            numberOfBallsLabel.Text = String.Format("Number of Balls: {0:D2}", gameController.BallCount);
+            numberOfBallsLabel.Text = 
+                String.Format("Number of Balls: {0:D2}\nNumber of Stick Figures: {1:D2}", 
+                               gameController.BallCount, 
+                               gameController.StickFigureCount);
         }
 
         private void UpdateTimer_Tick(object sender, EventArgs e)
@@ -121,6 +124,10 @@ namespace PerformanceDemo
             else if ( e.KeyCode == Keys.C )
             {
                 gameController.ClearAllBalls();
+            }
+            else if ( e.KeyCode == Keys.R )
+            {
+                gameController.ClearAllStickFigures();
             }
             else if ( e.KeyCode == Keys.A )
             {

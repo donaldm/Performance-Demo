@@ -77,6 +77,14 @@ namespace PerformanceDemo.Game
             }
         }
 
+        public int StickFigureCount
+        {
+            get
+            {
+                return stickFigureManager.Count;
+            }
+        }
+
         public bool AllowThrow { set; get; }
 
         public bool ShouldFire { set; get; }
@@ -180,6 +188,11 @@ namespace PerformanceDemo.Game
         public void ClearAllBalls()
         {
             ballManager.Clear();
+        }
+
+        public void ClearAllStickFigures()
+        {
+            stickFigureManager.Clear();
         }
 
         public void RotateTurretTowards(int x, int y)

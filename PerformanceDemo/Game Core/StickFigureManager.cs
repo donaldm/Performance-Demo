@@ -24,6 +24,14 @@ namespace PerformanceDemo.Game_Core
             }
         }
 
+        public int Count
+        {
+            get
+            {
+                return stickFigures.Count;
+            }
+        }
+
         public void AddStickFigure(StickFigure stickFigure)
         {
             stickFigures.Add(stickFigure);
