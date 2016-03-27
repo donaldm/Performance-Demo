@@ -1,5 +1,4 @@
 ﻿using PerformanceDemo.Game_Core;
-using PerformanceDemo.Renderers;
 using PerformanceDemo.Utilities;
 using System;
 using System.Collections.Generic;
@@ -355,8 +354,7 @@ namespace PerformanceDemo.Game
         {
             ballManager.Draw(graphics);
             stickFigureManager.Draw(graphics);
-            TurretRenderer turretRenderer = new TurretRenderer(playerTurret);
-            turretRenderer.Draw(graphics);
+            playerTurret.Draw(graphics);
         }
     }
 }

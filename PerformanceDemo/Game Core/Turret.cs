@@ -1,6 +1,7 @@
 ﻿using PerformanceDemo.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,116 +10,69 @@ namespace PerformanceDemo.Game_Core
 {
     class Turret
     {
-        Vector2 location;
-        double angle;
-        double length;
-        double baseWidth;
-        double baseHeight;
-        double turretWidth;
+        private Pen turretPen;
 
         public Turret(Vector2 startLocation, double startAngle, double startLength, 
                       double startBaseWidth, double startBaseHeight, double startTurretWidth)
         {
-            location = startLocation;
-            angle = startAngle;
-            length = startLength;
-            baseWidth = startBaseWidth;
-            baseHeight = startBaseHeight;
-            turretWidth = startTurretWidth;
+            Location = startLocation;
+            Angle = startAngle;
+            Length = startLength;
+            BaseWidth = startBaseWidth;
+            BaseHeight = startBaseHeight;
+            TurretWidth = startTurretWidth;
+
+            turretPen = new Pen(Color.White, (int)TurretWidth);
         }
 
-        public void RotateTowards(double x, double y)
-        {
-            double deltaX = x - location.X;
-            double deltaY = y - location.Y;
-            angle = Math.Atan2(deltaY, deltaX);
-        }
-
-        public Vector2 Location
-        {
-            set
-            {
-                location = value;
-            }
-
-            get
-            {
-                return location;
-            }
-        }
+        public Vector2 Location { set; get; }
 
         public Vector2 EndLocation
         {
             get
             {
-                Vector2 turretVector = Vector2.FromAngleAndLength(angle, length);
-                return location + turretVector;
+                Vector2 turretVector = Vector2.FromAngleAndLength(Angle, Length);
+                return Location + turretVector;
             }
         }
 
-        public double Angle
-        {
-            set
-            {
-                angle = value;
-            }
+        public double Angle { set; get; }
 
-            get
-            {
-                return angle;
-            }
+        public double Length { set; get; }
+
+        public double BaseWidth { set; get; }
+
+        public double BaseHeight { set; get; }
+
+        public double TurretWidth { set; get; }
+
+        public Rectangle CalculateBoundingBox()
+        {
+            double turretX = Location.X;
+            double turretY = Location.Y;
+            double halfTurretWidth = BaseWidth / 2.0;
+            double halfTurretHeight = BaseHeight / 2.0;
+            double turretStartX = turretX - halfTurretWidth;
+            double turretStartY = turretY - halfTurretHeight;
+
+            Rectangle turretRectangle = new Rectangle((int)turretStartX, (int)turretStartY, (int)BaseWidth, (int)BaseHeight);
+            return turretRectangle;
         }
 
-        public double Length
+        public void RotateTowards(double x, double y)
         {
-            set
-            {
-                length = Length;
-            }
-
-            get
-            {
-                return length;
-            }
+            double deltaX = x - Location.X;
+            double deltaY = y - Location.Y;
+            Angle = Math.Atan2(deltaY, deltaX);
         }
 
-        public double BaseWidth
+        public void Draw(Graphics graphics)
         {
-            set
-            {
-                baseWidth = value;
-            }
-
-            get
-            {
-                return baseWidth;
-            }
-        }
-
-        public double BaseHeight
-        {
-            set
-            {
-                baseHeight = value;
-            }
-
-            get
-            {
-                return baseHeight;
-            }
-        }
-
-        public double TurretWidth
-        {
-            set
-            {
-                turretWidth = value;
-            }
-
-            get
-            {
-                return turretWidth;
-            }
+            Rectangle turretRectangle = CalculateBoundingBox();
+            graphics.FillEllipse(Brushes.White, turretRectangle);
+            Point startPoint = new Point((int)Location.X, (int)Location.Y);
+            Point endPoint = new Point((int)EndLocation.X, (int)EndLocation.Y);
+            graphics.DrawLine(turretPen, startPoint, endPoint);
         }
     }
 }
