@@ -11,14 +11,10 @@ namespace PerformanceDemo.Game_Core
     class BallManager
     {
         protected List<Ball> balls;
-        private Rectangle boundary;
-        private Random random;
 
-        public BallManager(Rectangle windowBoundary)
+        public BallManager()
         {
             balls = new List<Ball>();
-            boundary = windowBoundary;
-            random = new Random();
         }
 
         public List<Ball> Balls
@@ -34,18 +30,6 @@ namespace PerformanceDemo.Game_Core
             get
             {
                 return balls.Count;
-            }
-        }
-
-        public Rectangle Boundary
-        {
-            set
-            {
-                boundary = value;
-            }
-            get
-            {
-                return boundary;
             }
         }
 
@@ -84,40 +68,7 @@ namespace PerformanceDemo.Game_Core
         {
             foreach (Ball curBall in balls)
             {
-                UpdateBall(parameters, curBall);
-            }
-        }
-
-        public virtual void UpdateBall(WorldParameters parameters, Ball ball)
-        {
-            ball.Update(parameters);
-
-            Rectangle ballRectangle = ball.CalculateBoundingBox();
-
-            if (ballRectangle.X < boundary.X)
-            {
-                ball.Velocity.X = Math.Abs(ball.Velocity.X) * parameters.Damping;
-                ball.Position.X = boundary.X + ball.Radius;
-            }
-            if (ballRectangle.X + ballRectangle.Width > boundary.Width)
-            {
-                ball.Velocity.X = -Math.Abs(ball.Velocity.X) * parameters.Damping;
-                ball.Position.X = boundary.Width - ball.Radius;
-            }
-            if (ballRectangle.Y < boundary.Y)
-            {
-                ball.Velocity.Y = Math.Abs(ball.Velocity.Y) * parameters.Damping;
-                ball.Position.Y = boundary.Y + ball.Radius;
-            }
-            if (ballRectangle.Y + ballRectangle.Height > boundary.Height)
-            {
-                ball.Velocity.Y = -Math.Abs(ball.Velocity.Y) * parameters.Damping;
-                double jitterVel = ball.Velocity.Y / 2;
-                if (jitterVel < -1)
-                {
-                    ball.Velocity.X += random.NextDouble() * jitterVel - random.NextDouble() * jitterVel;
-                }
-                ball.Position.Y = boundary.Height - ball.Radius;
+                curBall.Update(parameters);
             }
         }
 

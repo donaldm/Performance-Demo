@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,38 +9,27 @@ namespace PerformanceDemo.Game_Core
 {
     class WorldParameters
     {
-        private double gravity;
-        private double damping;
+        private Random worldRandom;
 
-        public WorldParameters(double pGravity, double pDamping)
+        public WorldParameters(double pGravity, double pDamping, Rectangle pBoundary)
         {
-            gravity = pGravity;
-            damping = pDamping;
+            Gravity = pGravity;
+            Damping = pDamping;
+            Boundary = pBoundary;
+            worldRandom = new Random();
         }
 
-        public double Gravity
-        {
-            set
-            {
-                gravity = value;
-            }
+        public double Gravity { get; set; }
 
+        public double Damping { get; set; }
+
+        public Rectangle Boundary { get; set; }
+
+        public Random WorldRandom
+        {
             get
             {
-                return gravity;
-            }
-        }
-
-        public double Damping
-        {
-            set
-            {
-                damping = value;
-            }
-
-            get
-            {
-                return damping;
+                return worldRandom;
             }
         }
     }

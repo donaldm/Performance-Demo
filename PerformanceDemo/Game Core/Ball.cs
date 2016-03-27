@@ -106,6 +106,37 @@ namespace PerformanceDemo.Game_Core
                 velocity.Y += parameters.Gravity;
             }
             position += velocity;
+
+
+            Rectangle ballRectangle = CalculateBoundingBox();
+            Rectangle boundary = parameters.Boundary;
+            Random random = parameters.WorldRandom;
+
+            if (ballRectangle.X < boundary.X)
+            {
+                Velocity.X = Math.Abs(Velocity.X) * parameters.Damping;
+                Position.X = boundary.X + Radius;
+            }
+            if (ballRectangle.X + ballRectangle.Width > boundary.Width)
+            {
+                Velocity.X = -Math.Abs(Velocity.X) * parameters.Damping;
+                Position.X = boundary.Width - Radius;
+            }
+            if (ballRectangle.Y < boundary.Y)
+            {
+                Velocity.Y = Math.Abs(Velocity.Y) * parameters.Damping;
+                Position.Y = boundary.Y + Radius;
+            }
+            if (ballRectangle.Y + ballRectangle.Height > boundary.Height)
+            {
+                Velocity.Y = -Math.Abs(Velocity.Y) * parameters.Damping;
+                double jitterVel = Velocity.Y / 2;
+                if (jitterVel < -1)
+                {
+                    Velocity.X += random.NextDouble() * jitterVel - random.NextDouble() * jitterVel;
+                }
+                Position.Y = boundary.Height - Radius;
+            }
         }
 
         public void Draw(Graphics graphics)

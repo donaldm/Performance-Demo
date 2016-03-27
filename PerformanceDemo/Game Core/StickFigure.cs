@@ -113,6 +113,30 @@ namespace PerformanceDemo.Game_Core
             velocity.Y += parameters.Gravity;
             position += velocity;
             previousVelocity = new Vector2(velocity);
+
+            Rectangle stickRectangle = CalculateBoundingBox();
+            Rectangle boundary = parameters.Boundary;
+
+            if (stickRectangle.X < boundary.X)
+            {
+                Velocity.X = Math.Abs(Velocity.X) * parameters.Damping;
+                Position.X = boundary.X + Height / 2;
+            }
+            if (stickRectangle.X + stickRectangle.Width > boundary.Width)
+            {
+                Velocity.X = -Math.Abs(Velocity.X) * parameters.Damping;
+                Position.X = boundary.Width - Width / 2;
+            }
+            if (stickRectangle.Y < boundary.Y)
+            {
+                Velocity.Y = Math.Abs(Velocity.Y) * parameters.Damping;
+                Position.Y = boundary.Y + Height / 2;
+            }
+            if (stickRectangle.Y + stickRectangle.Height > boundary.Height)
+            {
+                Velocity.Y = 0;
+                Position.Y = boundary.Height - Height / 2;
+            }
         }
 
 

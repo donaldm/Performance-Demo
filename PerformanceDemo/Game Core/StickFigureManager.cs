@@ -10,14 +10,10 @@ namespace PerformanceDemo.Game_Core
     class StickFigureManager
     {
         protected List<StickFigure> stickFigures;
-        private Rectangle boundary;
-        private Random random;
 
-        public StickFigureManager(Rectangle windowBoundary)
+        public StickFigureManager()
         {
             stickFigures = new List<StickFigure>();
-            boundary = windowBoundary;
-            random = new Random();
         }
 
         public List<StickFigure> StickFigures
@@ -25,18 +21,6 @@ namespace PerformanceDemo.Game_Core
             get
             {
                 return stickFigures;
-            }
-        }
-
-        public Rectangle Boundary
-        {
-            set
-            {
-                boundary = value;
-            }
-            get
-            {
-                return boundary;
             }
         }
 
@@ -59,35 +43,7 @@ namespace PerformanceDemo.Game_Core
         {
             foreach (StickFigure curStickFigure in stickFigures)
             {
-                UpdateStickFigure(parameters, curStickFigure);
-            }
-        }
-
-        public virtual void UpdateStickFigure(WorldParameters parameters, StickFigure stickFigure)
-        {
-            stickFigure.Update(parameters);
-
-            Rectangle stickRectangle = stickFigure.CalculateBoundingBox();
-
-            if (stickRectangle.X < boundary.X)
-            {
-                stickFigure.Velocity.X = Math.Abs(stickFigure.Velocity.X) * parameters.Damping;
-                stickFigure.Position.X = boundary.X + stickFigure.Height / 2;
-            }
-            if (stickRectangle.X + stickRectangle.Width > boundary.Width)
-            {
-                stickFigure.Velocity.X = -Math.Abs(stickFigure.Velocity.X) * parameters.Damping;
-                stickFigure.Position.X = boundary.Width - stickFigure.Width / 2;
-            }
-            if (stickRectangle.Y < boundary.Y)
-            {
-                stickFigure.Velocity.Y = Math.Abs(stickFigure.Velocity.Y) * parameters.Damping;
-                stickFigure.Position.Y = boundary.Y + stickFigure.Height / 2;
-            }
-            if (stickRectangle.Y + stickRectangle.Height > boundary.Height)
-            {
-                stickFigure.Velocity.Y = 0;
-                stickFigure.Position.Y = boundary.Height - stickFigure.Height / 2;
+                curStickFigure.Update(parameters);
             }
         }
 

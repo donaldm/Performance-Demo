@@ -41,10 +41,10 @@ namespace PerformanceDemo.Game
 
         public GameController(Rectangle worldBoundary)
         {
-            ballManager = new BallManager(worldBoundary);
-            stickFigureManager = new StickFigureManager(worldBoundary);
+            ballManager = new BallManager();
+            stickFigureManager = new StickFigureManager();
 
-            worldParameters = new WorldParameters(GRAVITY, DAMPING);
+            worldParameters = new WorldParameters(GRAVITY, DAMPING, worldBoundary);
 
             Vector2 startLocation = new Vector2(worldBoundary.X + worldBoundary.Width / 2, worldBoundary.Y + worldBoundary.Height - 25);
             playerTurret = new Turret(startLocation, TURRET_START_ANGLE, TURRET_START_LENGTH,
@@ -67,12 +67,11 @@ namespace PerformanceDemo.Game
         {
             set
             {
-                ballManager.Boundary = value;
-                stickFigureManager.Boundary = value;
+                worldParameters.Boundary = value;
             }
             get
             {
-                return ballManager.Boundary;
+                return worldParameters.Boundary;
             }
         }
 
