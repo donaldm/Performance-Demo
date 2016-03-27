@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PerformanceDemo.Utilities
 {
-    class Vector2
+    public class Vector2
     {
         public Vector2(double pX, double pY)
         {
