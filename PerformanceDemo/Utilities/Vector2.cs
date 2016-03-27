@@ -8,19 +8,16 @@ namespace PerformanceDemo.Utilities
 {
     class Vector2
     {
-        double x;
-        double y;
-
         public Vector2(double pX, double pY)
         {
-            x = pX;
-            y = pY;
+            X = pX;
+            Y = pY;
         }
 
         public Vector2(Vector2 vector)
         {
-            x = vector.X;
-            y = vector.Y;
+            X = vector.X;
+            Y = vector.Y;
         }
 
         public static Vector2 FromAngleAndLength(double angle, double length)
@@ -30,29 +27,9 @@ namespace PerformanceDemo.Utilities
             return new Vector2(x, y);
         }
 
-        public double X
-        {
-            set
-            {
-                x = value;
-            }
-            get
-            {
-                return x;
-            }
-        }
+        public double X { set; get; }
 
-        public double Y
-        {
-            set
-            {
-                y = value;
-            }
-            get
-            {
-                return y;
-            }
-        }
+        public double Y { set; get; }
 
         public double Length
         {
@@ -79,7 +56,7 @@ namespace PerformanceDemo.Utilities
                 {
                     normalizeLength = 1;
                 }
-                return new Vector2(x / normalizeLength, y / normalizeLength);
+                return new Vector2(X / normalizeLength, Y / normalizeLength);
             }
         }
 
@@ -100,7 +77,7 @@ namespace PerformanceDemo.Utilities
 
         public static bool operator ==(Vector2 first, Vector2 second)
         {
-            if (first.x == second.x && first.y == second.y)
+            if (first.X == second.X && first.Y == second.Y)
             {
                 return true;
             }
@@ -112,7 +89,7 @@ namespace PerformanceDemo.Utilities
 
         public static bool operator !=(Vector2 first, Vector2 second)
         {
-            if (first.x != second.x || first.y != second.y)
+            if (first.X != second.X || first.Y != second.Y)
             {
                 return true;
             }

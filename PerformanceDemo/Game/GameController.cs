@@ -28,11 +28,6 @@ namespace PerformanceDemo.Game
         private WorldParameters worldParameters;
         private Turret playerTurret;
         private int ballRadius;
-        private bool allowThrow;
-        private bool rightArrowPressed;
-        private bool leftArrowPressed;
-        private bool shouldFire;
-        private bool paused;
         private Ball selectedBall;
         private Ball rightClickedBall;
         private Vector2 mouseLocation;
@@ -51,11 +46,11 @@ namespace PerformanceDemo.Game
 
             ballRadius = BALL_RADIUS;
 
-            allowThrow = true;
-            rightArrowPressed = false;
-            leftArrowPressed = false;
-            shouldFire = false;
-            paused = false;
+            AllowThrow = true;
+            RightArrowPressed = false;
+            LeftArrowPressed = false;
+            ShouldFire = false;
+            Paused = false;
             selectedBall = null;
             rightClickedBall = null;
             mouseLocation = new Vector2(0, 0);
@@ -82,74 +77,19 @@ namespace PerformanceDemo.Game
             }
         }
 
-        public bool AllowThrow
-        {
-            set
-            {
-                allowThrow = value;
-            }
-            
-            get
-            {
-                return allowThrow;
-            }
-        }
+        public bool AllowThrow { set; get; }
 
-        public bool ShouldFire
-        {
-            set
-            {
-                shouldFire = value;
-            }
+        public bool ShouldFire { set; get; }
 
-            get
-            {
-                return shouldFire;
-            }
-        }
+        public bool Paused { set; get; }
 
-        public bool Paused
-        {
-            set
-            {
-                paused = value;
-            }
+        public bool RightArrowPressed { set; get; }
 
-            get
-            {
-                return paused;
-            }
-        }
-
-        public bool RightArrowPressed
-        {
-            set
-            {
-                rightArrowPressed = value;
-            }
-
-            get
-            {
-                return rightArrowPressed;
-            }
-        }
-
-        public bool LeftArrowPressed
-        {
-            set
-            {
-                leftArrowPressed = value;
-            }
-
-            get
-            {
-                return leftArrowPressed;
-            }
-        }
+        public bool LeftArrowPressed { set; get; }
 
         public void Update()
         {
-            if (paused)
+            if (Paused)
             {
                 return;
             }
@@ -159,10 +99,10 @@ namespace PerformanceDemo.Game
             selectedVector.X = mouseLocation.X;
             selectedVector.Y = mouseLocation.Y;
 
-            if (shouldFire)
+            if (ShouldFire)
             {
                 FireTurret();
-                shouldFire = false;
+                ShouldFire = false;
             }
 
             stickFigureManager.Update(worldParameters);
@@ -215,15 +155,15 @@ namespace PerformanceDemo.Game
         private void UpdateTurretPosition()
         {
             int turretDirection = 0;
-            if (rightArrowPressed && leftArrowPressed)
+            if (RightArrowPressed && LeftArrowPressed)
             {
                 turretDirection = 0;
             }
-            else if (rightArrowPressed)
+            else if (RightArrowPressed)
             {
                 turretDirection = TURRET_MOVE_SPEED;
             }
-            else if (leftArrowPressed)
+            else if (LeftArrowPressed)
             {
                 turretDirection = -TURRET_MOVE_SPEED;
             }
@@ -249,7 +189,7 @@ namespace PerformanceDemo.Game
 
         public void MouseMove(int mouseX, int mouseY)
         {
-            if (paused)
+            if (Paused)
             {
                 return;
             }
@@ -273,16 +213,16 @@ namespace PerformanceDemo.Game
 
         public void LeftMouseDown(int mouseX, int mouseY)
         {
-            if (paused)
+            if (Paused)
             {
-                paused = false;
+                Paused = false;
                 return;
             }
 
             mouseLocation.X = mouseX;
             mouseLocation.Y = mouseY;
             Ball foundBall = ballManager.FindBall(mouseLocation);
-            if (foundBall != null && allowThrow)
+            if (foundBall != null && AllowThrow)
             {
                 selectedBall = foundBall;
                 selectedBall.EnableGravity = false;

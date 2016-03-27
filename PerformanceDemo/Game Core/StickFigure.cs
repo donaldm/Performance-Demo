@@ -10,86 +10,28 @@ namespace PerformanceDemo.Game_Core
 {
     class StickFigure
     {
-        private Vector2 position;
-        private Vector2 velocity;
         private Vector2 previousVelocity;
-        private int width;
-        private int height;
-        private double headMultiplier;
 
         public StickFigure(Vector2 startPosition, Vector2 startVelocity, int startWidth, int startHeight, int startHeadMultiplier)
         {
-            position = startPosition;
-            velocity = startVelocity;
-            previousVelocity = new Vector2(velocity);
-            width = startWidth;
-            height = startHeight;
-            headMultiplier = startHeadMultiplier;
+            Position = startPosition;
+            Velocity = startVelocity;
+            previousVelocity = new Vector2(Velocity);
+            Width = startWidth;
+            Height = startHeight;
+            HeadMultiplier = startHeadMultiplier;
         }
 
 
-        public Vector2 Position
-        {
-            set
-            {
-                position = value;
-            }
-            get
-            {
-                return position;
-            }
-        }
+        public Vector2 Position { set; get; }
 
-        public Vector2 Velocity
-        {
-            set
-            {
-                velocity = value;
-            }
-            get
-            {
-                return velocity;
-            }
-        }
+        public Vector2 Velocity { set; get; }
 
-        public int Width
-        {
-            set
-            {
-                width = value;
-            }
+        public int Width { set; get; }
 
-            get
-            {
-                return width;
-            }
-        }
+        public int Height { set; get; }
 
-        public int Height
-        {
-            set
-            {
-                height = value;
-            }
-
-            get
-            {
-                return height;
-            }
-        }
-
-        public double HeadMultiplier
-        {
-            set
-            {
-                headMultiplier = value;
-            }
-
-            get
-            {
-                return headMultiplier;
-            }
-        }
+        public double HeadMultiplier { set; get; }
 
         public Rectangle CalculateBoundingBox()
         {
@@ -106,13 +48,13 @@ namespace PerformanceDemo.Game_Core
 
         public void Update(WorldParameters parameters)
         {
-            if (velocity != previousVelocity && velocity.Y == 0)
+            if (Velocity != previousVelocity && Velocity.Y == 0)
             {
-                velocity.X = -1;
+                Velocity.X = -1;
             }
-            velocity.Y += parameters.Gravity;
-            position += velocity;
-            previousVelocity = new Vector2(velocity);
+            Velocity.Y += parameters.Gravity;
+            Position += Velocity;
+            previousVelocity = new Vector2(Velocity);
 
             Rectangle stickRectangle = CalculateBoundingBox();
             Rectangle boundary = parameters.Boundary;

@@ -10,67 +10,21 @@ namespace PerformanceDemo.Game_Core
 {
     class Ball
     {
-        private double radius;
-        private Vector2 position;
-        private Vector2 velocity;
-        private bool enableGravity;
-
         public Ball(double startRadius, Vector2 startPosition, Vector2 startVelocity)
         {
-            radius = startRadius;
-            position = startPosition;
-            velocity = startVelocity;
-            enableGravity = true;
+            Radius = startRadius;
+            Position = startPosition;
+            Velocity = startVelocity;
+            EnableGravity = true;
         }
 
-        public Double Radius
-        {
-            set
-            {
-                radius = value;
-            }
-            get
-            {
-                return radius;
-            }
-        }
+        public Double Radius { set; get; }
 
-        public Vector2 Position
-        {
-            set
-            {
-                position = value;
-            }
-            get
-            {
-                return position;
-            }
-        }
+        public Vector2 Position { set; get; }
 
-        public Vector2 Velocity
-        {
-            set
-            {
-                velocity = value;
-            }
-            get
-            {
-                return velocity;
-            }
-        }
+        public Vector2 Velocity { set; get; }
 
-        public bool EnableGravity
-        {
-            set
-            {
-                enableGravity = value;
-            }
-
-            get
-            {
-                return enableGravity;
-            }
-        }
+        public bool EnableGravity { set; get; }
 
         public Rectangle CalculateBoundingBox()
         {
@@ -90,8 +44,8 @@ namespace PerformanceDemo.Game_Core
         {
             bool inside = false;
 
-            Vector2 delta = testLocation - position;
-            if (delta.Length < radius)
+            Vector2 delta = testLocation - Position;
+            if (delta.Length < Radius)
             {
                 inside = true;
             }
@@ -101,12 +55,11 @@ namespace PerformanceDemo.Game_Core
 
         public void Update(WorldParameters parameters)
         {
-            if (enableGravity)
+            if (EnableGravity)
             {
-                velocity.Y += parameters.Gravity;
+                Velocity.Y += parameters.Gravity;
             }
-            position += velocity;
-
+            Position += Velocity;
 
             Rectangle ballRectangle = CalculateBoundingBox();
             Rectangle boundary = parameters.Boundary;
