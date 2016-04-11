@@ -25,12 +25,6 @@ namespace PerformanceDemo.Game_Core
 
         public Rectangle Boundary { get; set; }
 
-        public Random WorldRandom
-        {
-            get
-            {
-                return worldRandom;
-            }
-        }
+        public Random WorldRandom => worldRandom;
     }
 }

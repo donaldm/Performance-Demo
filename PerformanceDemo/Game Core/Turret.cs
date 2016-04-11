@@ -61,9 +61,9 @@ namespace PerformanceDemo.Game_Core
 
         public void RotateTowards(double x, double y)
         {
-            double deltaX = x - Location.X;
-            double deltaY = y - Location.Y;
-            Angle = Math.Atan2(deltaY, deltaX);
+            Vector2 targetLocation = new Vector2(x, y);
+            Vector2 delta = targetLocation - Location;
+            Angle = delta.Angle;
         }
 
         public void Draw(Graphics graphics)

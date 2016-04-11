@@ -17,21 +17,9 @@ namespace PerformanceDemo.Game_Core
             balls = new List<Ball>();
         }
 
-        public List<Ball> Balls
-        {
-            get
-            {
-                return balls;
-            }
-        }
+        public List<Ball> Balls => balls;
 
-        public int Count
-        {
-            get
-            {
-                return balls.Count;
-            }
-        }
+        public int Count => balls.Count;
 
         public void AddBall(Ball ball)
         {

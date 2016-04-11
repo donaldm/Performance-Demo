@@ -28,5 +28,28 @@ namespace PerformanceDemo.Unit_Tests
             Vector2 testVector = new Vector2(a, b);
             return testVector.Y;
         }
+
+        [TestCase(1,2,3,4)]
+        [TestCase(-2.5, -3.5, 2, 3.6)]
+        public void TestVectorAddition(double a, double b, double c, double d)
+        {
+            Vector2 firstVector = new Vector2(a, b);
+            Vector2 secondVector = new Vector2(c, d);
+            Vector2 resultVector = firstVector + secondVector;
+            Assert.AreEqual(resultVector.X, a + c);
+            Assert.AreEqual(resultVector.Y, b + d);
+        }
+
+        [TestCase(3,4,1,2)]
+        [TestCase(-1, -2, -4, -5)]
+        [TestCase(-4.5, -3.2, 0, 1.5)]
+        public void TestVectorSubtraction(double a, double b, double c, double d)
+        {
+            Vector2 firstVector = new Vector2(a, b);
+            Vector2 secondVector = new Vector2(c, d);
+            Vector2 resultVector = firstVector - secondVector;
+            Assert.AreEqual(resultVector.X, a - c);
+            Assert.AreEqual(resultVector.Y, b - d);
+        }
     }
 }

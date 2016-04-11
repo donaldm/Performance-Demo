@@ -24,8 +24,7 @@ namespace PerformanceDemo
             DoubleBuffered = true;
 
             gameController = new GameController(CalculateVisibleRectangle());
-            updateTimer = new Timer();
-            updateTimer.Interval = UPDATE_INTERVAL;
+            updateTimer = new Timer {Interval = UPDATE_INTERVAL};
             updateTimer.Tick += UpdateTimer_Tick;
             updateTimer.Start();
         }

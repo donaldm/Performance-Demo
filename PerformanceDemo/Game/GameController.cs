@@ -17,7 +17,7 @@ namespace PerformanceDemo.Game
         private const double FIRE_SPEED = 5;
         private const int BALL_RADIUS = 10;
         private const int TURRET_MOVE_SPEED = 4;
-        private const int TURRET_START_ANGLE = 45;
+        private const int TURRET_START_ANGLE =  45;
         private const int TURRET_START_LENGTH = 75;
         private const int TURRET_BASE_WIDTH = 50;
         private const int TURRET_BASE_HEIGHT = 50;
@@ -69,21 +69,9 @@ namespace PerformanceDemo.Game
             }
         }
 
-        public int BallCount
-        {
-            get
-            {
-                return ballManager.Count;
-            }
-        }
+        public int BallCount => ballManager.Count;
 
-        public int StickFigureCount
-        {
-            get
-            {
-                return stickFigureManager.Count;
-            }
-        }
+        public int StickFigureCount => stickFigureManager.Count;
 
         public bool AllowThrow { set; get; }
 

@@ -16,21 +16,9 @@ namespace PerformanceDemo.Game_Core
             stickFigures = new List<StickFigure>();
         }
 
-        public List<StickFigure> StickFigures
-        {
-            get
-            {
-                return stickFigures;
-            }
-        }
+        public List<StickFigure> StickFigures => stickFigures;
 
-        public int Count
-        {
-            get
-            {
-                return stickFigures.Count;
-            }
-        }
+        public int Count => stickFigures.Count;
 
         public void AddStickFigure(StickFigure stickFigure)
         {
