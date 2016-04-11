@@ -20,6 +20,9 @@ namespace PerformanceDemo.Game_Core
             Width = startWidth;
             Height = startHeight;
             HeadMultiplier = startHeadMultiplier;
+            Falling = true;
+            RaiseRightArm = false;
+            RaiseLeftArm = false;
         }
 
 
@@ -32,6 +35,11 @@ namespace PerformanceDemo.Game_Core
         public int Height { set; get; }
 
         public double HeadMultiplier { set; get; }
+
+        public bool Falling { set; get; }
+
+        public bool RaiseRightArm { set; get; }
+        public bool RaiseLeftArm { set; get; }
 
         public Rectangle CalculateBoundingBox()
         {
@@ -48,10 +56,26 @@ namespace PerformanceDemo.Game_Core
 
         public void Update(WorldParameters parameters)
         {
-            if (Velocity != previousVelocity && Velocity.Y == 0)
+            if (Velocity != previousVelocity && Velocity.Y == 0 && Falling)
             {
-                Velocity.X = -1;
+                int startSpeed = parameters.WorldRandom.Next(2, 5);
+                Velocity.X = (1 - parameters.WorldRandom.Next(0, 2) * 2) * startSpeed;
+                Falling = false;
             }
+
+            if (parameters.WorldRandom.Next(0, 100)%10 == 0)
+            {
+                int whichArm = parameters.WorldRandom.Next(0, 2);
+                if (whichArm == 0)
+                {
+                    RaiseLeftArm = !RaiseLeftArm;
+                }
+                else
+                {
+                    RaiseRightArm = !RaiseRightArm;
+                }
+            }
+
             Velocity.Y += parameters.Gravity;
             Position += Velocity;
             previousVelocity = new Vector2(Velocity);
@@ -62,7 +86,7 @@ namespace PerformanceDemo.Game_Core
             if (stickRectangle.X < boundary.X)
             {
                 Velocity.X = Math.Abs(Velocity.X) * parameters.Damping;
-                Position.X = boundary.X + Height / 2;
+                Position.X = boundary.X + Width / 2;
             }
             if (stickRectangle.X + stickRectangle.Width > boundary.Width)
             {
@@ -81,6 +105,15 @@ namespace PerformanceDemo.Game_Core
             }
         }
 
+        public int GetArmPosition(Rectangle stickRect, bool armRaised)
+        {
+            double armFactor = 0.5;
+            if (armRaised)
+            {
+                armFactor = 0.2;
+            }
+            return stickRect.Y + (int) (stickRect.Height*armFactor);
+        }
 
         public void Draw(Graphics graphics)
         {
@@ -92,8 +125,8 @@ namespace PerformanceDemo.Game_Core
             Point rightFoot = new Point(stickRect.Right, stickRect.Bottom);
             Point midSection = new Point(midX, stickRect.Y + (int)(stickRect.Height * 0.6));
             Point shoulderSection = new Point(midX, stickRect.Y + (int)(stickRect.Height * 0.4));
-            Point leftArm = new Point(stickRect.Left, stickRect.Y + (int)(stickRect.Height * 0.5));
-            Point rightArm = new Point(stickRect.Right, stickRect.Y + (int)(stickRect.Height * 0.5));
+            Point leftArm = new Point(stickRect.Left, GetArmPosition(stickRect, RaiseLeftArm));
+            Point rightArm = new Point(stickRect.Right, GetArmPosition(stickRect, RaiseRightArm));
             Point neckSection = new Point(midX, stickRect.Y + (int)(stickRect.Height * 0.3));
             Point headSection = new Point(midX, stickRect.Y + (int)(stickRect.Height * 0.1));
 

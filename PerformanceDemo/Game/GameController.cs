@@ -244,7 +244,7 @@ namespace PerformanceDemo.Game
             double turretAngle = playerTurret.Angle;
             Vector2 ballVelocity = Vector2.FromAngleAndLength(turretAngle, FIRE_SPEED);
 
-            LionBall myBall = new LionBall(ballRadius, playerTurret.EndLocation, ballVelocity);
+            Ball myBall = new Ball(ballRadius, playerTurret.EndLocation, ballVelocity);
             ballManager.AddItem(myBall);
         }
 
