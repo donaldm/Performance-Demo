@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace PerformanceDemo.Game_Core
 {
-    class Ball : IGraphicalItem
+    public class Ball : IGraphicalItem
     {
         public Ball(double startRadius, Vector2 startPosition, Vector2 startVelocity)
         {

@@ -11,7 +11,7 @@ using PerformanceDemo.Utilities;
 
 namespace PerformanceDemo.Game_Core
 {
-    class LionBall : Ball
+    public class LionBall : Ball
     {
         private static Image lionHeadImage;
 

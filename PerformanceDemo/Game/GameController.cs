@@ -1,16 +1,19 @@
 ﻿using PerformanceDemo.Game_Core;
 using PerformanceDemo.Utilities;
+using PerformanceDemo.Particle_System;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using PerformanceDemo.Properties;
 
 namespace PerformanceDemo.Game
 {
-    class GameController
+    public class GameController
     {
         private const double GRAVITY = 0.05;
         private const double DAMPING = 0.8;
@@ -25,6 +28,7 @@ namespace PerformanceDemo.Game
 
         private GraphicalManager ballManager;
         private GraphicalManager stickFigureManager;
+        private ParticleSystem particleSystem;
         private WorldParameters worldParameters;
         private Turret playerTurret;
         private int ballRadius;
@@ -32,11 +36,15 @@ namespace PerformanceDemo.Game
         private Ball rightClickedBall;
         private Vector2 mouseLocation;
         private Vector2 selectedVector;
+        private SoundPlayer blastSound;
 
         public GameController(Rectangle worldBoundary)
         {
-            ballManager = new GraphicalManager();;
+            ballManager = new GraphicalManager();
             stickFigureManager = new GraphicalManager();
+            ballManager.Destroyed += BallManager_Destroyed;
+
+            particleSystem = new ParticleSystem();
 
             worldParameters = new WorldParameters(GRAVITY, DAMPING, worldBoundary);
 
@@ -45,6 +53,8 @@ namespace PerformanceDemo.Game
                 TURRET_BASE_WIDTH, TURRET_BASE_HEIGHT, TURRET_WIDTH);
 
             ballRadius = BALL_RADIUS;
+
+            blastSound = new SoundPlayer(Resources.Blast);
 
             AllowThrow = true;
             RightArrowPressed = false;
@@ -55,6 +65,24 @@ namespace PerformanceDemo.Game
             rightClickedBall = null;
             mouseLocation = new Vector2(0, 0);
             selectedVector = new Vector2(0, 0);
+        }
+
+        private void BallManager_Destroyed(IGraphicalItem graphicalItem)
+        {
+            if (graphicalItem is StickFigure)
+            {
+                StickFigure curStickFigure = graphicalItem as StickFigure;
+                EmitterSettings emitterSettings = new EmitterSettings();
+                emitterSettings.Location = curStickFigure.Position;
+                emitterSettings.ParticleColor = Color.LightGreen;
+                emitterSettings.ParticleCount = 100;
+                emitterSettings.ParticleLifeSpan = 100;
+                emitterSettings.Radius = 10;
+                Random emitterRandom = new Random();
+                emitterSettings.Velocity = new Vector2(emitterRandom.Next(-10, 10), emitterRandom.Next(-10, 10));
+                particleSystem.Emit(emitterSettings);
+                blastSound.Play();
+            }
         }
 
         public Rectangle Boundary
@@ -103,6 +131,7 @@ namespace PerformanceDemo.Game
 
             stickFigureManager.Update(worldParameters);
             ballManager.Update(worldParameters);
+            particleSystem.Update(worldParameters);
             CheckCollisions();
         }
 
@@ -250,7 +279,7 @@ namespace PerformanceDemo.Game
 
         public void AddStickFigure(int x, int y)
         {
-            StickFigure figure = new StickFigure(new Vector2(x, y), new Vector2(0, 0), 25, 50, 10);
+            StickFigure figure = new StickFigure(new Vector2(x, y), new Vector2(0, 0), 25, 50, 0.4);
             stickFigureManager.AddItem(figure);
         }
 
@@ -259,6 +288,7 @@ namespace PerformanceDemo.Game
             ballManager.Draw(graphics);
             stickFigureManager.Draw(graphics);
             playerTurret.Draw(graphics);
+            particleSystem.Draw(graphics);
         }
     }
 }

@@ -8,13 +8,15 @@ using PerformanceDemo.Utilities;
 
 namespace PerformanceDemo.Game_Core
 {
-    class GraphicalManager
+    public class GraphicalManager
     {
         protected List<IGraphicalItem> graphicalItems;
+        public delegate void DestroyedHandler(IGraphicalItem graphicalItem);
+        public event DestroyedHandler Destroyed;
 
         public GraphicalManager()
         {
-            graphicalItems = new List<IGraphicalItem>();
+            graphicalItems = new List<IGraphicalItem>();;
         }
 
         public List<IGraphicalItem> GraphicalItems => graphicalItems;
@@ -52,7 +54,7 @@ namespace PerformanceDemo.Game_Core
             return foundItem;
         }
 
-        public void Update(WorldParameters parameters)
+        public virtual void Update(WorldParameters parameters)
         {
             foreach (IGraphicalItem curItem in graphicalItems)
             {
@@ -99,6 +101,7 @@ namespace PerformanceDemo.Game_Core
             {
                 curItem.Destroy();
                 graphicalManager.RemoveItem(curItem);
+                Destroyed(curItem);
             }
         }
     }

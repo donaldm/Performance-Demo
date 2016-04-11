@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PerformanceDemo.Game_Core
 {
-    class Turret
+    public class Turret
     {
         private Pen turretPen;
 

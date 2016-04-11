@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace PerformanceDemo.Game_Core
 {
-    class StickFigure : IGraphicalItem
+    public class StickFigure : IGraphicalItem
     {
         private Vector2 previousVelocity;
 
-        public StickFigure(Vector2 startPosition, Vector2 startVelocity, int startWidth, int startHeight, int startHeadMultiplier)
+        public StickFigure(Vector2 startPosition, Vector2 startVelocity, int startWidth, int startHeight, double startHeadMultiplier)
         {
             Position = startPosition;
             Velocity = startVelocity;
@@ -143,11 +143,11 @@ namespace PerformanceDemo.Game_Core
             graphics.DrawLine(stickPen, shoulderSection, rightArm);
 
             //draw head
-            float headWidth = stickRect.Height * 0.4f;
-            float headHeight = stickRect.Height * 0.4f;
+            float headWidth = (float)(stickRect.Height * HeadMultiplier);
+            float headHeight = (float)(stickRect.Height * HeadMultiplier);
 
             graphics.DrawEllipse(stickPen, headSection.X - headWidth / 2, headSection.Y - headHeight / 2,
-                stickRect.Height * 0.4f, stickRect.Height * 0.4f);
+                headWidth, headHeight);
         }
 
         public bool Contains(Vector2 testLocation)

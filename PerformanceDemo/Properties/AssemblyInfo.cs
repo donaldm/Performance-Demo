@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Performance Demo")]
-[assembly: AssemblyDescription("Developed by Donald May for the Texas A&M Unviersity Commerce Performance Talk")]
+[assembly: AssemblyDescription("Developed by Donald May for the Texas A&M Unviersity Commerce Performance Talk. \nBlast Sound by Mike Koenig: http://soundbible.com/538-Blast.html.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Performance Demo")]

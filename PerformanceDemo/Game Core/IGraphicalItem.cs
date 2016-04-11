@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using PerformanceDemo.Utilities;
 
 namespace PerformanceDemo.Game_Core
 {
-    interface IGraphicalItem
+    public interface IGraphicalItem
     {
         void Update(WorldParameters parameters);
         void Draw(Graphics graphics);

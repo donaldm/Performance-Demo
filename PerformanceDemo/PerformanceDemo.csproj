@@ -70,6 +70,9 @@
     <Compile Include="Game Core\GraphicalManager.cs" />
     <Compile Include="Game Core\IGraphicalItem.cs" />
     <Compile Include="Game Core\LionBall.cs" />
+    <Compile Include="Particle System\EmitterSettings.cs" />
+    <Compile Include="Particle System\Particle.cs" />
+    <Compile Include="Particle System\ParticleSystem.cs" />
     <Compile Include="Game Core\StickFigure.cs" />
     <Compile Include="Game Core\Turret.cs" />
     <Compile Include="Game Core\WorldParameters.cs" />
@@ -134,6 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LionHeadReduced.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blast.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

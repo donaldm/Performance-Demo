@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PerformanceDemo.Game_Core
 {
-    class WorldParameters
+    public class WorldParameters
     {
         private Random worldRandom;
 
