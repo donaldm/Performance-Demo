@@ -67,9 +67,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game Core\Ball.cs" />
-    <Compile Include="Game Core\BallManager.cs" />
+    <Compile Include="Game Core\GraphicalManager.cs" />
+    <Compile Include="Game Core\IGraphicalItem.cs" />
+    <Compile Include="Game Core\LionBall.cs" />
     <Compile Include="Game Core\StickFigure.cs" />
-    <Compile Include="Game Core\StickFigureManager.cs" />
     <Compile Include="Game Core\Turret.cs" />
     <Compile Include="Game Core\WorldParameters.cs" />
     <Compile Include="Game\GameController.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
@@ -126,6 +128,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013-Lion-Head.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LionHeadReduced.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

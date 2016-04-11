@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PerformanceDemo.Game_Core
 {
-    class StickFigure
+    class StickFigure : IGraphicalItem
     {
         private Vector2 previousVelocity;
 
@@ -115,6 +115,19 @@ namespace PerformanceDemo.Game_Core
 
             graphics.DrawEllipse(stickPen, headSection.X - headWidth / 2, headSection.Y - headHeight / 2,
                 stickRect.Height * 0.4f, stickRect.Height * 0.4f);
+        }
+
+        public bool Contains(Vector2 testLocation)
+        {
+            Rectangle boundingBox = CalculateBoundingBox();
+            int x = (int) testLocation.X;
+            int y = (int) testLocation.Y;
+            return boundingBox.Contains(x, y);
+        }
+
+        public void Destroy()
+        {
+            Console.WriteLine("Destroy Stick Figure!");
         }
     }
 }

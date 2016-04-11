@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace PerformanceDemo.Game_Core
 {
-    class Ball
+    class Ball : IGraphicalItem
     {
         public Ball(double startRadius, Vector2 startPosition, Vector2 startVelocity)
         {
@@ -92,9 +92,14 @@ namespace PerformanceDemo.Game_Core
             }
         }
 
-        public void Draw(Graphics graphics)
+        public virtual void Draw(Graphics graphics)
         {
             graphics.FillEllipse(Brushes.Red, CalculateBoundingBox());
+        }
+
+        public void Destroy()
+        {
+            Console.WriteLine("Destroy Ball!!!");
         }
     }
 }

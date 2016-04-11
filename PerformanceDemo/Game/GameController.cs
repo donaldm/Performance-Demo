@@ -23,8 +23,8 @@ namespace PerformanceDemo.Game
         private const int TURRET_BASE_HEIGHT = 50;
         private const int TURRET_WIDTH = 20;
 
-        private BallManager ballManager;
-        private StickFigureManager stickFigureManager;
+        private GraphicalManager ballManager;
+        private GraphicalManager stickFigureManager;
         private WorldParameters worldParameters;
         private Turret playerTurret;
         private int ballRadius;
@@ -35,8 +35,8 @@ namespace PerformanceDemo.Game
 
         public GameController(Rectangle worldBoundary)
         {
-            ballManager = new BallManager();
-            stickFigureManager = new StickFigureManager();
+            ballManager = new GraphicalManager();;
+            stickFigureManager = new GraphicalManager();
 
             worldParameters = new WorldParameters(GRAVITY, DAMPING, worldBoundary);
 
@@ -108,44 +108,7 @@ namespace PerformanceDemo.Game
 
         public void CheckCollisions()
         {
-            List<Ball> ballsToDestroy = new List<Ball>();
-            List<StickFigure> stickFiguresToDestroy = new List<StickFigure>();
-
-            foreach(Ball curBall in ballManager.Balls)
-            {
-                Rectangle ballRect = curBall.CalculateBoundingBox();
-                foreach(StickFigure stickFigure in stickFigureManager.StickFigures)
-                {
-                    Rectangle stickRect = stickFigure.CalculateBoundingBox();
-
-                    if (ballRect.IntersectsWith(stickRect) && 
-                        !ballsToDestroy.Contains(curBall) && 
-                        !stickFiguresToDestroy.Contains(stickFigure))
-                    {
-                        ballsToDestroy.Add(curBall);
-                        stickFiguresToDestroy.Add(stickFigure);
-                    }
-                }
-            }
-
-            DestroyBalls(ballsToDestroy);
-            DestroyStickFigures(stickFiguresToDestroy);
-        }
-
-        public void DestroyBalls(List<Ball> balls)
-        {
-            foreach(Ball curBall in balls)
-            {
-                ballManager.RemoveBall(curBall);
-            }
-        }
-
-        public void DestroyStickFigures(List<StickFigure> stickFigures)
-        {
-            foreach(StickFigure stickFigure in stickFigures)
-            {
-                stickFigureManager.RemoveStickFigure(stickFigure);
-            }
+            ballManager.CheckCollisions(stickFigureManager);
         }
 
         private void UpdateTurretPosition()
@@ -222,7 +185,7 @@ namespace PerformanceDemo.Game
 
             mouseLocation.X = mouseX;
             mouseLocation.Y = mouseY;
-            Ball foundBall = ballManager.FindBall(mouseLocation);
+            Ball foundBall = ballManager.FindItem(mouseLocation) as Ball;
             if (foundBall != null && AllowThrow)
             {
                 selectedBall = foundBall;
@@ -257,7 +220,7 @@ namespace PerformanceDemo.Game
         {
             bool ballFound = false;
 
-            Ball foundBall = ballManager.FindBall(new Vector2(mouseX, mouseY));
+            Ball foundBall = ballManager.FindItem(new Vector2(mouseX, mouseY)) as Ball;
             if (foundBall != null)
             {
                 rightClickedBall = foundBall;
@@ -271,7 +234,7 @@ namespace PerformanceDemo.Game
         {
             if (rightClickedBall != null)
             {
-                ballManager.RemoveBall(rightClickedBall);
+                ballManager.RemoveItem(rightClickedBall);
                 rightClickedBall = null;
             }
         }
@@ -281,14 +244,14 @@ namespace PerformanceDemo.Game
             double turretAngle = playerTurret.Angle;
             Vector2 ballVelocity = Vector2.FromAngleAndLength(turretAngle, FIRE_SPEED);
 
-            Ball myBall = new Ball(ballRadius, playerTurret.EndLocation, ballVelocity);
-            ballManager.AddBall(myBall);
+            LionBall myBall = new LionBall(ballRadius, playerTurret.EndLocation, ballVelocity);
+            ballManager.AddItem(myBall);
         }
 
         public void AddStickFigure(int x, int y)
         {
             StickFigure figure = new StickFigure(new Vector2(x, y), new Vector2(0, 0), 25, 50, 10);
-            stickFigureManager.AddStickFigure(figure);
+            stickFigureManager.AddItem(figure);
         }
 
         public void Draw(Graphics graphics)
