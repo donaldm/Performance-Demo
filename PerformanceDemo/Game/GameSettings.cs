@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace PerformanceDemo.Game
 {
@@ -27,5 +30,11 @@ namespace PerformanceDemo.Game
         public bool OptimizeGraphics { set; get; }
         public bool ImmortalParticles;
         public bool CrazyAlgorithm;
+
+        public void Save(String filepath)
+        {
+            string jsonText = JsonConvert.SerializeObject(this);
+            File.WriteAllText(filepath, jsonText);
+        }
     }
 }

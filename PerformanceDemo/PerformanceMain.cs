@@ -179,5 +179,14 @@ namespace PerformanceDemo
                 performanceControls.Hide();
             }
         }
+
+        private void loadScenarioMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void saveScenarioMenuItem_Click(object sender, EventArgs e)
+        {
+            gameSettings.Save("test.json");
+        }
     }
 }

@@ -44,6 +44,8 @@
             this.numberOfBallsLabel = new System.Windows.Forms.Label();
             this.rightClickContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadScenarioMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveScenarioMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.rightClickContextMenu.SuspendLayout();
@@ -80,6 +82,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadScenarioMenuItem,
+            this.saveScenarioMenuItem,
             this.toolStripSeparator1,
             this.exitMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -89,12 +93,12 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(89, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // exitMenuItem
             // 
             this.exitMenuItem.Name = "exitMenuItem";
-            this.exitMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitMenuItem.Text = "E&xit";
             this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
@@ -128,7 +132,7 @@
             // 
             this.controlMenuItem.CheckOnClick = true;
             this.controlMenuItem.Name = "controlMenuItem";
-            this.controlMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.controlMenuItem.Size = new System.Drawing.Size(119, 22);
             this.controlMenuItem.Text = "Controls";
             this.controlMenuItem.Click += new System.EventHandler(this.controlMenuItem_Click);
             // 
@@ -176,6 +180,20 @@
             this.deleteMenuItem.Text = "&Delete";
             this.deleteMenuItem.Click += new System.EventHandler(this.deleteMenuItem_Click);
             // 
+            // loadScenarioMenuItem
+            // 
+            this.loadScenarioMenuItem.Name = "loadScenarioMenuItem";
+            this.loadScenarioMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadScenarioMenuItem.Text = "&Load Scenario";
+            this.loadScenarioMenuItem.Click += new System.EventHandler(this.loadScenarioMenuItem_Click);
+            // 
+            // saveScenarioMenuItem
+            // 
+            this.saveScenarioMenuItem.Name = "saveScenarioMenuItem";
+            this.saveScenarioMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveScenarioMenuItem.Text = "&Save Scenario";
+            this.saveScenarioMenuItem.Click += new System.EventHandler(this.saveScenarioMenuItem_Click);
+            // 
             // PerformanceMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -222,6 +240,8 @@
         private System.Windows.Forms.ToolStripMenuItem allowThrowingMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem controlMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadScenarioMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveScenarioMenuItem;
     }
 }
 
