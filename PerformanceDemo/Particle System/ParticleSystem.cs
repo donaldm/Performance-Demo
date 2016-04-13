@@ -42,6 +42,7 @@ namespace PerformanceDemo.Particle_System
                 Particle particle = new Particle(particleLocation, particleVelocity, particleSize, lifeSpan,
                     emitterSettings.ParticleColor);
 
+                particle.Immortal = emitterSettings.Immortal;
                 particle.Destroyed += Particle_Destroyed;
 
                 AddItem(particle);

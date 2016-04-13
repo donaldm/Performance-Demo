@@ -37,8 +37,9 @@ namespace PerformanceDemo.Game
         private Vector2 mouseLocation;
         private Vector2 selectedVector;
         private SoundPlayer blastSound;
+        private GameSettings gameSettings;
 
-        public GameController(Rectangle worldBoundary)
+        public GameController(Rectangle worldBoundary, GameSettings pGameSettings)
         {
             ballManager = new GraphicalManager();
             stickFigureManager = new GraphicalManager();
@@ -55,6 +56,8 @@ namespace PerformanceDemo.Game
             ballRadius = BALL_RADIUS;
 
             blastSound = new SoundPlayer(Resources.Blast);
+
+            gameSettings = pGameSettings;
 
             AllowThrow = true;
             RightArrowPressed = false;
@@ -74,10 +77,11 @@ namespace PerformanceDemo.Game
                 StickFigure curStickFigure = graphicalItem as StickFigure;
                 EmitterSettings emitterSettings = new EmitterSettings();
                 emitterSettings.Location = curStickFigure.Position;
-                emitterSettings.ParticleColor = Color.LightGreen;
+                emitterSettings.ParticleColor = Color.White;
                 emitterSettings.ParticleCount = 100;
                 emitterSettings.ParticleLifeSpan = 100;
                 emitterSettings.Radius = 10;
+                emitterSettings.Immortal = gameSettings.ImmortalParticles;
                 Random emitterRandom = new Random();
                 emitterSettings.Velocity = new Vector2(emitterRandom.Next(-10, 10), emitterRandom.Next(-10, 10));
                 particleSystem.Emit(emitterSettings);
@@ -273,8 +277,17 @@ namespace PerformanceDemo.Game
             double turretAngle = playerTurret.Angle;
             Vector2 ballVelocity = Vector2.FromAngleAndLength(turretAngle, FIRE_SPEED);
 
-            Ball myBall = new Ball(ballRadius, playerTurret.EndLocation, ballVelocity);
-            ballManager.AddItem(myBall);
+            if (gameSettings.Mode == GameMode.Normal)
+            {
+                Ball myBall = new Ball(ballRadius, playerTurret.EndLocation, ballVelocity);
+                ballManager.AddItem(myBall);
+            }
+            else if (gameSettings.Mode == GameMode.Lion)
+            {
+                bool optimized = gameSettings.OptimizeGraphics;
+                LionBall lionBall = new LionBall(ballRadius, playerTurret.EndLocation, ballVelocity, optimized);
+                ballManager.AddItem(lionBall);
+            }
         }
 
         public void AddStickFigure(int x, int y)

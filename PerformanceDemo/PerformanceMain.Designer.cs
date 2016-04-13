@@ -126,9 +126,11 @@
             // 
             // controlMenuItem
             // 
+            this.controlMenuItem.CheckOnClick = true;
             this.controlMenuItem.Name = "controlMenuItem";
-            this.controlMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.controlMenuItem.Size = new System.Drawing.Size(152, 22);
             this.controlMenuItem.Text = "Controls";
+            this.controlMenuItem.Click += new System.EventHandler(this.controlMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 

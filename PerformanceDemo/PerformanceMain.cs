@@ -17,16 +17,27 @@ namespace PerformanceDemo
 
         private GameController gameController;
         private Timer updateTimer;
+        private GameSettings gameSettings;
+        private PerformanceControls performanceControls;
 
         public PerformanceMain()
         {
             InitializeComponent();
             DoubleBuffered = true;
 
-            gameController = new GameController(CalculateVisibleRectangle());
+            gameSettings = new GameSettings();
+            gameController = new GameController(CalculateVisibleRectangle(), gameSettings);
             updateTimer = new Timer {Interval = UPDATE_INTERVAL};
             updateTimer.Tick += UpdateTimer_Tick;
             updateTimer.Start();
+
+            performanceControls = new PerformanceControls(gameSettings);
+            performanceControls.VisibleChanged += PerformanceControlsOnVisibleChanged;
+        }
+
+        private void PerformanceControlsOnVisibleChanged(object sender, EventArgs eventArgs)
+        {
+            controlMenuItem.Checked = performanceControls.Visible;
         }
 
         public Rectangle CalculateVisibleRectangle()
@@ -155,6 +166,18 @@ namespace PerformanceDemo
         private void allowThrowingMenuItem_CheckedChanged(object sender, EventArgs e)
         {
             gameController.AllowThrow = allowThrowingMenuItem.Checked;
+        }
+
+        private void controlMenuItem_Click(object sender, EventArgs e)
+        {
+            if (controlMenuItem.Checked)
+            {
+                performanceControls.Show();
+            }
+            else
+            {
+                performanceControls.Hide();
+            }
         }
     }
 }

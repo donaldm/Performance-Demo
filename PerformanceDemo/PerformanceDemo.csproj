@@ -70,6 +70,7 @@
     <Compile Include="Game Core\GraphicalManager.cs" />
     <Compile Include="Game Core\IGraphicalItem.cs" />
     <Compile Include="Game Core\LionBall.cs" />
+    <Compile Include="Game\GameSettings.cs" />
     <Compile Include="Particle System\EmitterSettings.cs" />
     <Compile Include="Particle System\Particle.cs" />
     <Compile Include="Particle System\ParticleSystem.cs" />

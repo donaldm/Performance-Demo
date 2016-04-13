@@ -118,7 +118,7 @@ namespace PerformanceDemo.Game_Core
         public void Draw(Graphics graphics)
         {
             Rectangle stickRect = CalculateBoundingBox();
-            Pen stickPen = Pens.Green;
+            Pen stickPen = Pens.White;
 
             int midX = stickRect.X + stickRect.Width / 2;
             Point leftFoot = new Point(stickRect.Left, stickRect.Bottom);

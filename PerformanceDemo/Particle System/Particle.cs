@@ -22,6 +22,7 @@ namespace PerformanceDemo.Particle_System
             TotalLife = lifeSpan;
             LifeSpan = lifeSpan;
             ParticleColor = particleColor;
+            Immortal = false;
         }
 
         public Vector2 Location { set; get; }
@@ -30,6 +31,7 @@ namespace PerformanceDemo.Particle_System
         public int TotalLife { set; get; }
         public int ParticleSize { set; get; }
         public Color ParticleColor { set; get; }
+        public bool Immortal { set; get; }
 
         public void Update(WorldParameters parameters)
         {
@@ -37,7 +39,7 @@ namespace PerformanceDemo.Particle_System
             Location += Velocity;
             LifeSpan = Math.Max(LifeSpan - 1, 0);
 
-            if (LifeSpan <= 0)
+            if (LifeSpan <= 0 && !Immortal)
             {
                 Destroy();
             }

@@ -18,6 +18,7 @@ namespace PerformanceDemo.Particle_System
             ParticleCount = 0;
             ParticleColor = Color.White;
             ParticleLifeSpan = 0;
+            Immortal = false;
         }
 
         public EmitterSettings(Vector2 location, Vector2 velocity, int radius, int particleCount, int particleLifeSpan, Color particleColor)
@@ -27,6 +28,7 @@ namespace PerformanceDemo.Particle_System
             Radius = radius;
             ParticleCount = particleCount;
             ParticleColor = particleColor;
+            Immortal = false;
         }
 
         public Vector2 Location { set; get; }
@@ -34,6 +36,7 @@ namespace PerformanceDemo.Particle_System
         public int Radius { set; get; }
         public int ParticleCount { set; get; }
         public int ParticleLifeSpan { set; get; }
+        public bool Immortal { set; get; }
         public Color ParticleColor { set; get; }
     }
 }
