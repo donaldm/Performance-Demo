@@ -38,6 +38,7 @@ namespace PerformanceDemo.Game
         private Vector2 mouseLocation;
         private Vector2 selectedVector;
         private SoundPlayer blastSound;
+        private SoundPlayer flyAwaySound;
         private GameSettings gameSettings;
 
         public GameController(Rectangle worldBoundary, GameSettings pGameSettings)
@@ -57,12 +58,14 @@ namespace PerformanceDemo.Game
             ballRadius = BALL_RADIUS;
 
             blastSound = new SoundPlayer(Resources.Blast);
+            flyAwaySound = new SoundPlayer(Resources.Comical_sounds_1);
 
             gameSettings = pGameSettings;
 
             AllowThrow = true;
             RightArrowPressed = false;
             LeftArrowPressed = false;
+            PlaySounds = true;
             ShouldFire = false;
             Paused = false;
             selectedBall = null;
@@ -97,6 +100,8 @@ namespace PerformanceDemo.Game
 
         public bool LeftArrowPressed { set; get; }
 
+        public bool PlaySounds { set; get; }
+
         public void Update()
         {
             if (Paused)
@@ -104,6 +109,7 @@ namespace PerformanceDemo.Game
                 return;
             }
 
+            UpdateTurretColor();
             UpdateTurretPosition();
             playerTurret.Location.Y = Boundary.Y + Boundary.Height - playerTurret.BaseHeight / 2;
             selectedVector.X = mouseLocation.X;
@@ -134,6 +140,10 @@ namespace PerformanceDemo.Game
 
                 if (graphicalItem is LionBall)
                 {
+                    if (!curStickFigure.ReverseGravity && PlaySounds)
+                    {
+                        flyAwaySound.Play();
+                    }
                     curStickFigure.FillWithKnowledge();
                 }
                 else if (graphicalItem is Ball)
@@ -159,9 +169,24 @@ namespace PerformanceDemo.Game
             Random emitterRandom = new Random();
             emitterSettings.Velocity = new Vector2(emitterRandom.Next(-10, 10), emitterRandom.Next(-10, 10));
             particleSystem.Emit(emitterSettings);
-            blastSound.Play();
+
+            if (PlaySounds)
+            {
+                blastSound.Play();
+            }
         }
 
+        private void UpdateTurretColor()
+        {
+            if (gameSettings.Mode == GameMode.Normal)
+            {
+                playerTurret.TurretColor = Color.White;
+            }
+            else if (gameSettings.Mode == GameMode.Lion)
+            {
+                playerTurret.TurretColor = Color.Blue;
+            }
+        }
         private void UpdateTurretPosition()
         {
             int turretDirection = 0;
@@ -317,6 +342,18 @@ namespace PerformanceDemo.Game
                 bool optimized = gameSettings.OptimizeGraphics;
                 LionBall lionBall = new LionBall(ballRadius, playerTurret.EndLocation, ballVelocity, optimized);
                 ballManager.AddItem(lionBall);
+            }
+        }
+
+        public void CycleMode()
+        {
+            if (gameSettings.Mode == GameMode.Normal)
+            {
+                gameSettings.Mode = GameMode.Lion;
+            }
+            else if (gameSettings.Mode == GameMode.Lion)
+            {
+                gameSettings.Mode = GameMode.Normal;
             }
         }
 

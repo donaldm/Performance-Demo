@@ -10,8 +10,6 @@ namespace PerformanceDemo.Game_Core
 {
     public class Turret
     {
-        private Pen turretPen;
-
         public Turret(Vector2 startLocation, double startAngle, double startLength, 
                       double startBaseWidth, double startBaseHeight, double startTurretWidth)
         {
@@ -21,8 +19,7 @@ namespace PerformanceDemo.Game_Core
             BaseWidth = startBaseWidth;
             BaseHeight = startBaseHeight;
             TurretWidth = startTurretWidth;
-
-            turretPen = new Pen(Color.White, (int)TurretWidth);
+            TurretColor = Color.White;
         }
 
         public Vector2 Location { set; get; }
@@ -45,6 +42,8 @@ namespace PerformanceDemo.Game_Core
         public double BaseHeight { set; get; }
 
         public double TurretWidth { set; get; }
+
+        public Color TurretColor { set; get; }
 
         public Rectangle CalculateBoundingBox()
         {
@@ -69,10 +68,14 @@ namespace PerformanceDemo.Game_Core
         public void Draw(Graphics graphics)
         {
             Rectangle turretRectangle = CalculateBoundingBox();
-            graphics.FillEllipse(Brushes.White, turretRectangle);
+            SolidBrush turretBrush = new SolidBrush(TurretColor);
+            Pen turretPen = new Pen(TurretColor, (float)TurretWidth);
+            graphics.FillEllipse(turretBrush, turretRectangle);
             Point startPoint = new Point((int)Location.X, (int)Location.Y);
             Point endPoint = new Point((int)EndLocation.X, (int)EndLocation.Y);
             graphics.DrawLine(turretPen, startPoint, endPoint);
+            turretPen.Dispose();
+            turretBrush.Dispose();
         }
     }
 }

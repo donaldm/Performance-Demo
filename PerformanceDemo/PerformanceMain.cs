@@ -123,26 +123,30 @@ namespace PerformanceDemo
 
         private void PerformanceMain_KeyDown(object sender, KeyEventArgs e)
         {
-            if ( e.KeyCode == Keys.Right )
+            if (e.KeyCode == Keys.Right)
             {
                 gameController.RightArrowPressed = true;
             }
-            else if ( e.KeyCode == Keys.Left )
+            else if (e.KeyCode == Keys.Left)
             {
                 gameController.LeftArrowPressed = true;
             }
-            else if ( e.KeyCode == Keys.C )
+            else if (e.KeyCode == Keys.C)
             {
                 gameController.ClearAllBalls();
             }
-            else if ( e.KeyCode == Keys.R )
+            else if (e.KeyCode == Keys.R)
             {
                 gameController.ClearAllStickFigures();
             }
-            else if ( e.KeyCode == Keys.A )
+            else if (e.KeyCode == Keys.A)
             {
                 Point mousePos = PointToClient(MousePosition);
                 gameController.AddStickFigure(mousePos.X, mousePos.Y);
+            }
+            else if (e.KeyCode == Keys.Up)
+            {
+                gameController.CycleMode();
             }
         }
 
@@ -209,6 +213,11 @@ namespace PerformanceDemo
                 gameSettings.Save(savedFilePath);
             }
             saveFileDialog.Dispose();
+        }
+
+        private void muteSoundsMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            gameController.PlaySounds = !muteSoundsMenuItem.Checked;
         }
     }
 }

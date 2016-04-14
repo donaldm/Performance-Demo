@@ -46,6 +46,7 @@
             this.numberOfBallsLabel = new System.Windows.Forms.Label();
             this.rightClickContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.muteSoundsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.rightClickContextMenu.SuspendLayout();
@@ -93,33 +94,34 @@
             // loadScenarioMenuItem
             // 
             this.loadScenarioMenuItem.Name = "loadScenarioMenuItem";
-            this.loadScenarioMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.loadScenarioMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadScenarioMenuItem.Text = "&Load Scenario";
             this.loadScenarioMenuItem.Click += new System.EventHandler(this.loadScenarioMenuItem_Click);
             // 
             // saveScenarioMenuItem
             // 
             this.saveScenarioMenuItem.Name = "saveScenarioMenuItem";
-            this.saveScenarioMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.saveScenarioMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveScenarioMenuItem.Text = "&Save Scenario";
             this.saveScenarioMenuItem.Click += new System.EventHandler(this.saveScenarioMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // exitMenuItem
             // 
             this.exitMenuItem.Name = "exitMenuItem";
-            this.exitMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.exitMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitMenuItem.Text = "E&xit";
             this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.allowThrowingMenuItem});
+            this.allowThrowingMenuItem,
+            this.muteSoundsMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "&Options";
@@ -194,6 +196,14 @@
             this.deleteMenuItem.Text = "&Delete";
             this.deleteMenuItem.Click += new System.EventHandler(this.deleteMenuItem_Click);
             // 
+            // muteSoundsMenuItem
+            // 
+            this.muteSoundsMenuItem.CheckOnClick = true;
+            this.muteSoundsMenuItem.Name = "muteSoundsMenuItem";
+            this.muteSoundsMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.muteSoundsMenuItem.Text = "Mute Sounds";
+            this.muteSoundsMenuItem.CheckedChanged += new System.EventHandler(this.muteSoundsMenuItem_CheckedChanged);
+            // 
             // PerformanceMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,6 +252,7 @@
         private System.Windows.Forms.ToolStripMenuItem controlMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadScenarioMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveScenarioMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem muteSoundsMenuItem;
     }
 }
 
