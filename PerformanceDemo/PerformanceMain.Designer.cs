@@ -33,6 +33,8 @@
             this.gameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadScenarioMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveScenarioMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,8 +46,6 @@
             this.numberOfBallsLabel = new System.Windows.Forms.Label();
             this.rightClickContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadScenarioMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveScenarioMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.rightClickContextMenu.SuspendLayout();
@@ -90,15 +90,29 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // loadScenarioMenuItem
+            // 
+            this.loadScenarioMenuItem.Name = "loadScenarioMenuItem";
+            this.loadScenarioMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.loadScenarioMenuItem.Text = "&Load Scenario";
+            this.loadScenarioMenuItem.Click += new System.EventHandler(this.loadScenarioMenuItem_Click);
+            // 
+            // saveScenarioMenuItem
+            // 
+            this.saveScenarioMenuItem.Name = "saveScenarioMenuItem";
+            this.saveScenarioMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.saveScenarioMenuItem.Text = "&Save Scenario";
+            this.saveScenarioMenuItem.Click += new System.EventHandler(this.saveScenarioMenuItem_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
             // 
             // exitMenuItem
             // 
             this.exitMenuItem.Name = "exitMenuItem";
-            this.exitMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitMenuItem.Size = new System.Drawing.Size(148, 22);
             this.exitMenuItem.Text = "E&xit";
             this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
@@ -179,20 +193,6 @@
             this.deleteMenuItem.Size = new System.Drawing.Size(107, 22);
             this.deleteMenuItem.Text = "&Delete";
             this.deleteMenuItem.Click += new System.EventHandler(this.deleteMenuItem_Click);
-            // 
-            // loadScenarioMenuItem
-            // 
-            this.loadScenarioMenuItem.Name = "loadScenarioMenuItem";
-            this.loadScenarioMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.loadScenarioMenuItem.Text = "&Load Scenario";
-            this.loadScenarioMenuItem.Click += new System.EventHandler(this.loadScenarioMenuItem_Click);
-            // 
-            // saveScenarioMenuItem
-            // 
-            this.saveScenarioMenuItem.Name = "saveScenarioMenuItem";
-            this.saveScenarioMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveScenarioMenuItem.Text = "&Save Scenario";
-            this.saveScenarioMenuItem.Click += new System.EventHandler(this.saveScenarioMenuItem_Click);
             // 
             // PerformanceMain
             // 

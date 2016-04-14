@@ -24,10 +24,10 @@ namespace PerformanceDemo
 
         private void PerformanceControls_Load(object sender, EventArgs e)
         {
-            reset();
+            Reset();
         }
 
-        public void reset()
+        public void Reset()
         {
             if (gameSettings.Mode == GameMode.Normal)
             {

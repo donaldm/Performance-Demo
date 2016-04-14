@@ -31,6 +31,21 @@ namespace PerformanceDemo.Game
         public bool ImmortalParticles;
         public bool CrazyAlgorithm;
 
+        public void Load(String filepath)
+        {
+            string jsonText = File.ReadAllText(filepath);
+            GameSettings loadedSettings = JsonConvert.DeserializeObject<GameSettings>(jsonText);
+            Copy(loadedSettings);
+        }
+
+        public void Copy(GameSettings gameSettings)
+        {
+            Mode = gameSettings.Mode;
+            OptimizeGraphics = gameSettings.OptimizeGraphics;
+            ImmortalParticles = gameSettings.ImmortalParticles;
+            CrazyAlgorithm = gameSettings.CrazyAlgorithm;
+        }
+
         public void Save(String filepath)
         {
             string jsonText = JsonConvert.SerializeObject(this);

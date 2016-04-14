@@ -11,8 +11,8 @@ namespace PerformanceDemo.Game_Core
     public class GraphicalManager
     {
         protected List<IGraphicalItem> graphicalItems;
-        public delegate void DestroyedHandler(IGraphicalItem graphicalItem);
-        public event DestroyedHandler Destroyed;
+
+        public event Action<IGraphicalItem, IGraphicalItem> Collided;
 
         public GraphicalManager()
         {
@@ -72,8 +72,8 @@ namespace PerformanceDemo.Game_Core
 
         public void CheckCollisions(GraphicalManager otherGraphicalManager)
         {
-            List<IGraphicalItem> myItemsToDestroy = new List<IGraphicalItem>();
-            List<IGraphicalItem> otherItemsToDestroy = new List<IGraphicalItem>();
+            List<IGraphicalItem> myItemsToCollide = new List<IGraphicalItem>();
+            List<IGraphicalItem> otherItemsToCollide = new List<IGraphicalItem>();
 
             foreach (IGraphicalItem curItem in GraphicalItems)
             {
@@ -82,26 +82,26 @@ namespace PerformanceDemo.Game_Core
                 {
                     Rectangle otherRect = otherItem.CalculateBoundingBox();
                     if (myRect.IntersectsWith(otherRect) &&
-                        !myItemsToDestroy.Contains(curItem) &&
-                        !otherItemsToDestroy.Contains(otherItem))
+                        !myItemsToCollide.Contains(curItem) &&
+                        !otherItemsToCollide.Contains(otherItem))
                     {
-                        myItemsToDestroy.Add(curItem);
-                        otherItemsToDestroy.Add(otherItem);
+                        myItemsToCollide.Add(curItem);
+                        otherItemsToCollide.Add(otherItem);
                     }
                 }
             }
 
-            DestroyItems(this, myItemsToDestroy);
-            DestroyItems(otherGraphicalManager, otherItemsToDestroy);
+            CollideItems(this, myItemsToCollide, otherItemsToCollide);
         }
 
-        public void DestroyItems(GraphicalManager graphicalManager, List<IGraphicalItem> graphicalItems)
+        public void CollideItems(GraphicalManager graphicalManager, List<IGraphicalItem> graphicalItems, List<IGraphicalItem> otherGraphicalItems)
         {
             foreach (IGraphicalItem curItem in graphicalItems)
             {
-                curItem.Destroy();
-                graphicalManager.RemoveItem(curItem);
-                Destroyed(curItem);
+                foreach (IGraphicalItem otherItem in otherGraphicalItems)
+                {
+                    Collided(curItem, otherItem);
+                }
             }
         }
     }

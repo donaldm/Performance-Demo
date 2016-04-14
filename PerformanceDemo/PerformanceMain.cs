@@ -182,11 +182,33 @@ namespace PerformanceDemo
 
         private void loadScenarioMenuItem_Click(object sender, EventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Select Scenario";
+            openFileDialog.Filter = "JSON Files|*.json";
+            openFileDialog.FilterIndex = 0;
+            DialogResult dialogResult = openFileDialog.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                gameController.Clear();
+                gameSettings.Load(openFileDialog.FileName);
+                performanceControls.Reset();
+            }
+            openFileDialog.Dispose();
         }
 
         private void saveScenarioMenuItem_Click(object sender, EventArgs e)
         {
-            gameSettings.Save("test.json");
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Save Scenario";
+            saveFileDialog.Filter = "JSON Files|*.json";
+            saveFileDialog.FilterIndex = 0;
+            DialogResult dialogResult = saveFileDialog.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                string savedFilePath = saveFileDialog.FileName;
+                gameSettings.Save(savedFilePath);
+            }
+            saveFileDialog.Dispose();
         }
     }
 }

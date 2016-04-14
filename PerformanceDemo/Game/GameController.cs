@@ -9,6 +9,7 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows.Forms.VisualStyles;
 using PerformanceDemo.Properties;
 
 namespace PerformanceDemo.Game
@@ -43,7 +44,7 @@ namespace PerformanceDemo.Game
         {
             ballManager = new GraphicalManager();
             stickFigureManager = new GraphicalManager();
-            ballManager.Destroyed += BallManager_Destroyed;
+            ballManager.Collided += BallManagerOnCollided;
 
             particleSystem = new ParticleSystem();
 
@@ -68,25 +69,6 @@ namespace PerformanceDemo.Game
             rightClickedBall = null;
             mouseLocation = new Vector2(0, 0);
             selectedVector = new Vector2(0, 0);
-        }
-
-        private void BallManager_Destroyed(IGraphicalItem graphicalItem)
-        {
-            if (graphicalItem is StickFigure)
-            {
-                StickFigure curStickFigure = graphicalItem as StickFigure;
-                EmitterSettings emitterSettings = new EmitterSettings();
-                emitterSettings.Location = curStickFigure.Position;
-                emitterSettings.ParticleColor = Color.White;
-                emitterSettings.ParticleCount = 100;
-                emitterSettings.ParticleLifeSpan = 100;
-                emitterSettings.Radius = 10;
-                emitterSettings.Immortal = gameSettings.ImmortalParticles;
-                Random emitterRandom = new Random();
-                emitterSettings.Velocity = new Vector2(emitterRandom.Next(-10, 10), emitterRandom.Next(-10, 10));
-                particleSystem.Emit(emitterSettings);
-                blastSound.Play();
-            }
         }
 
         public Rectangle Boundary
@@ -144,6 +126,42 @@ namespace PerformanceDemo.Game
             ballManager.CheckCollisions(stickFigureManager);
         }
 
+        private void BallManagerOnCollided(IGraphicalItem graphicalItem, IGraphicalItem otherGraphicalItem)
+        {
+            if (otherGraphicalItem is StickFigure)
+            {
+                StickFigure curStickFigure = otherGraphicalItem as StickFigure;
+
+                if (graphicalItem is LionBall)
+                {
+                    curStickFigure.FillWithKnowledge();
+                }
+                else if (graphicalItem is Ball)
+                {
+                    CreateExplosion(curStickFigure.Position);
+                    otherGraphicalItem.Destroy();
+                    stickFigureManager.RemoveItem(otherGraphicalItem);
+                }
+                graphicalItem.Destroy();
+                ballManager.RemoveItem(graphicalItem);
+            }
+        }
+
+        public void CreateExplosion(Vector2 location)
+        {
+            EmitterSettings emitterSettings = new EmitterSettings();
+            emitterSettings.Location = location;
+            emitterSettings.ParticleColor = Color.White;
+            emitterSettings.ParticleCount = 100;
+            emitterSettings.ParticleLifeSpan = 100;
+            emitterSettings.Radius = 10;
+            emitterSettings.Immortal = gameSettings.ImmortalParticles;
+            Random emitterRandom = new Random();
+            emitterSettings.Velocity = new Vector2(emitterRandom.Next(-10, 10), emitterRandom.Next(-10, 10));
+            particleSystem.Emit(emitterSettings);
+            blastSound.Play();
+        }
+
         private void UpdateTurretPosition()
         {
             int turretDirection = 0;
@@ -177,6 +195,18 @@ namespace PerformanceDemo.Game
         public void ClearAllStickFigures()
         {
             stickFigureManager.Clear();
+        }
+
+        public void ClearAllParticles()
+        {
+            particleSystem.Clear();
+        }
+
+        public void Clear()
+        {
+            ClearAllBalls();
+            ClearAllStickFigures();
+            ClearAllParticles();
         }
 
         public void RotateTurretTowards(int x, int y)

@@ -19,12 +19,13 @@ namespace PerformanceDemo.Game_Core
             previousVelocity = new Vector2(Velocity);
             Width = startWidth;
             Height = startHeight;
+            InitialHeadModifier = startHeadMultiplier;
             HeadMultiplier = startHeadMultiplier;
             Falling = true;
             RaiseRightArm = false;
             RaiseLeftArm = false;
+            ReverseGravity = false;
         }
-
 
         public Vector2 Position { set; get; }
 
@@ -34,12 +35,15 @@ namespace PerformanceDemo.Game_Core
 
         public int Height { set; get; }
 
+        public double InitialHeadModifier { set; get; }
         public double HeadMultiplier { set; get; }
 
         public bool Falling { set; get; }
 
         public bool RaiseRightArm { set; get; }
         public bool RaiseLeftArm { set; get; }
+
+        public bool ReverseGravity { set; get; }
 
         public Rectangle CalculateBoundingBox()
         {
@@ -76,7 +80,12 @@ namespace PerformanceDemo.Game_Core
                 }
             }
 
-            Velocity.Y += parameters.Gravity;
+            int gravityDirection = 1;
+            if (ReverseGravity)
+            {
+                gravityDirection = -1;
+            }
+            Velocity.Y += (parameters.Gravity * gravityDirection);
             Position += Velocity;
             previousVelocity = new Vector2(Velocity);
 
@@ -115,6 +124,15 @@ namespace PerformanceDemo.Game_Core
             return stickRect.Y + (int) (stickRect.Height*armFactor);
         }
 
+        public void FillWithKnowledge()
+        {
+            if (!ReverseGravity)
+            {
+                HeadMultiplier += 0.5;
+                ReverseGravity = true;
+            }
+        }
+
         public void Draw(Graphics graphics)
         {
             Rectangle stickRect = CalculateBoundingBox();
@@ -145,8 +163,8 @@ namespace PerformanceDemo.Game_Core
             //draw head
             float headWidth = (float)(stickRect.Height * HeadMultiplier);
             float headHeight = (float)(stickRect.Height * HeadMultiplier);
-
-            graphics.DrawEllipse(stickPen, headSection.X - headWidth / 2, headSection.Y - headHeight / 2,
+            double headOffset = (HeadMultiplier - InitialHeadModifier)* (stickRect.Height / 2);
+            graphics.DrawEllipse(stickPen, headSection.X - headWidth / 2, (float)(headSection.Y - headHeight / 2 - headOffset),
                 headWidth, headHeight);
         }
 
