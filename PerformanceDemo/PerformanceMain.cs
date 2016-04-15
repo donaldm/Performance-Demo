@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -196,6 +197,9 @@ namespace PerformanceDemo
                 gameController.Clear();
                 gameSettings.Load(openFileDialog.FileName);
                 performanceControls.Reset();
+                string filePath = openFileDialog.FileName;
+                string selectedScenario = Path.GetFileName(filePath);
+                Text = "Performance Demo [" + selectedScenario + "]";
             }
             openFileDialog.Dispose();
         }
