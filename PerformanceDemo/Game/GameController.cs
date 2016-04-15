@@ -125,6 +125,11 @@ namespace PerformanceDemo.Game
             ballManager.Update(worldParameters);
             particleSystem.Update(worldParameters);
             CheckCollisions();
+
+            if (gameSettings.CrazyAlgorithm)
+            {
+                ProcessCrazyAlgorithm();
+            }
         }
 
         public void CheckCollisions()
@@ -369,6 +374,36 @@ namespace PerformanceDemo.Game
             stickFigureManager.Draw(graphics);
             playerTurret.Draw(graphics);
             particleSystem.Draw(graphics);
+        }
+
+        public void ProcessCrazyAlgorithm()
+        {
+            foreach (Ball ball in ballManager.GraphicalItems)
+            {
+                Vector2 ballLocation = ball.Position;
+                foreach (StickFigure stickFigure in stickFigureManager.GraphicalItems)
+                {
+                    Vector2 stickFigureLocation = stickFigure.Position;
+                    foreach (Particle particle in particleSystem.GraphicalItems)
+                    {
+                        Vector2 particleLocation = particle.Location;
+
+                        Vector2 ballDistance = particleLocation - ballLocation;
+                        Vector2 stickFigureDistance = particleLocation - stickFigureLocation;
+                        Vector2 total = new Vector2(0, 0);
+                        if (ballDistance.Length > stickFigureDistance.Length)
+                        {
+                            Vector2 ballProjection = particleLocation + ballDistance.Normalized*100;
+                            total += ballProjection;
+                        }
+                        else
+                        {
+                            Vector2 stickFigureProjection = stickFigureLocation + stickFigureDistance.Normalized*100;
+                            total += stickFigureProjection;
+                        }
+                    }
+                }
+            }
         }
     }
 }

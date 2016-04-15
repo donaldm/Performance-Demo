@@ -35,9 +35,12 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.immortalParticlesCheckBox = new System.Windows.Forms.CheckBox();
+            this.crazyAlgorithmGroupBox = new System.Windows.Forms.GroupBox();
+            this.crazyAlgorithmCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.crazyAlgorithmGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -117,11 +120,33 @@
             this.immortalParticlesCheckBox.UseVisualStyleBackColor = true;
             this.immortalParticlesCheckBox.CheckedChanged += new System.EventHandler(this.immortalParticlesCheckBox_CheckedChanged);
             // 
+            // crazyAlgorithmGroupBox
+            // 
+            this.crazyAlgorithmGroupBox.Controls.Add(this.crazyAlgorithmCheckBox);
+            this.crazyAlgorithmGroupBox.Location = new System.Drawing.Point(13, 179);
+            this.crazyAlgorithmGroupBox.Name = "crazyAlgorithmGroupBox";
+            this.crazyAlgorithmGroupBox.Size = new System.Drawing.Size(355, 44);
+            this.crazyAlgorithmGroupBox.TabIndex = 4;
+            this.crazyAlgorithmGroupBox.TabStop = false;
+            this.crazyAlgorithmGroupBox.Text = "Crazy Algorithm";
+            // 
+            // crazyAlgorithmCheckBox
+            // 
+            this.crazyAlgorithmCheckBox.AutoSize = true;
+            this.crazyAlgorithmCheckBox.Location = new System.Drawing.Point(7, 19);
+            this.crazyAlgorithmCheckBox.Name = "crazyAlgorithmCheckBox";
+            this.crazyAlgorithmCheckBox.Size = new System.Drawing.Size(98, 17);
+            this.crazyAlgorithmCheckBox.TabIndex = 0;
+            this.crazyAlgorithmCheckBox.Text = "Crazy Algorithm";
+            this.crazyAlgorithmCheckBox.UseVisualStyleBackColor = true;
+            this.crazyAlgorithmCheckBox.CheckedChanged += new System.EventHandler(this.crazyAlgorithmCheckBox_CheckedChanged);
+            // 
             // PerformanceControls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(380, 356);
+            this.ClientSize = new System.Drawing.Size(380, 237);
+            this.Controls.Add(this.crazyAlgorithmGroupBox);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -135,6 +160,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.crazyAlgorithmGroupBox.ResumeLayout(false);
+            this.crazyAlgorithmGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -148,5 +175,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox immortalParticlesCheckBox;
+        private System.Windows.Forms.GroupBox crazyAlgorithmGroupBox;
+        private System.Windows.Forms.CheckBox crazyAlgorithmCheckBox;
     }
 }

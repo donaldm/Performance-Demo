@@ -40,6 +40,7 @@ namespace PerformanceDemo
 
             optimizedGraphicsCheckBox.Checked = gameSettings.OptimizeGraphics;
             immortalParticlesCheckBox.Checked = gameSettings.ImmortalParticles;
+            crazyAlgorithmCheckBox.Checked = gameSettings.CrazyAlgorithm;
         }
 
         private void normalModeRadioBtn_Click(object sender, EventArgs e)
@@ -60,6 +61,11 @@ namespace PerformanceDemo
         private void immortalParticlesCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             gameSettings.ImmortalParticles = immortalParticlesCheckBox.Checked;
+        }
+
+        private void crazyAlgorithmCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            gameSettings.CrazyAlgorithm = crazyAlgorithmCheckBox.Checked;
         }
 
         private void PerformanceControls_FormClosing(object sender, FormClosingEventArgs e)
